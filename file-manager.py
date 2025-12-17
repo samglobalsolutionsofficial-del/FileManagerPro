@@ -80,18 +80,18 @@ def rename_files(folder_name):
     user = input('Rename single or multiple files: ').lower().strip()
     if user in ['single' , 's' , 'one' , 'one-file' , 'single-file']:
         old_name_input = input('Old name of file to rename: ').lower().strip()
-        new_rename_input = input('New nme of file to rename: ').lower().strip()
+        new_rename_input = input('New name of file to rename: ').lower().strip()
         old_name = f'{folder_name}/{old_name_input}'
         new_name = f'{folder_name}/{new_rename_input}'
         os.rename(old_name , new_name)
         print(f'Renamed {old_name_input} --> {new_rename_input}')
-
     elif user in ['multiple' , 'm' , 'multiple' , 'multiple-files']:
+        new_files_name = input('Enter the new files name: ')
         extension = input('Extension of file: ')
         for index , file_name in enumerate(os.listdir(folder_name) , start=1):
             if file_name.endswith(extension):
                 old_path = f'{folder_name}/{file_name}'
-                new_name = f'{index}-data{extension}'
+                new_name = f'{index}-{new_files_name}{extension}'
                 new_path = f'{folder_name}/{new_name}'
                 os.rename(old_path , new_path)
                 print(f'Renamed {file_name} --> {new_name}')
@@ -225,7 +225,7 @@ def delete_files(folder_name):
                 print('Invalid file name!')
     else:
         print('Invalid Input!')
-delete_files(folder_name)
+# delete_files(folder_name)
 def create_files(folder_name):
     user = input('Create (files/folders): ').lower().strip()
     if user in ['file' , 'files' , 'create files']:
