@@ -57,8 +57,8 @@ import os
 import shutil
 
 
-folder_name = input('Enter the folder name: ')
 
+folder_name = input('Enter the folder name: ')
 def list_files(folder_name):
     try:
         file_filter = input('List all or specific files: ').lower().strip()
@@ -302,9 +302,32 @@ def detail_files(folder_name):
             print(f'Total number of words in {file_name} is {len(words)}')
     except Exception as error:
         print(f'Error: {str(error)}')
-detail_files(folder_name)
+# detail_files(folder_name)
+while True:
+    user = input('What do you want to do (list/rename/move/copy/delete/create/read/detail) file: ').lower().strip()
+    if user in ['list file' , 'lists' , 'list files' , 'list']:
+        list_files(folder_name)
+    elif user in ['rename file' , 'rename' , 'renames' , 'rename files']:
+        rename_files(folder_name)
+    elif user in ['move file' , 'move' , 'moves' , 'move files']:
+        move_files(folder_name)
+    elif user in ['copy file' , 'copy' , 'copy files']:
+        copy_files(folder_name)
+    elif user in ['delete file' , 'delete' , 'deletes' , 'delete files']:
+        delete_files(folder_name)
+    elif user in ['create file' , 'create' , 'create files']:
+        create_files(folder_name)
+    elif user in ['read file' , 'read' , 'read files']:
+        read_file(folder_name)
+    elif user in ['detail file' , 'detail' , 'detail files']:
+        detail_files(folder_name)
+    elif user in ['exit' , 'stop' , 'quite']:
+        print('Exit the program!')
+        break
+    else:
+        print(f'Invali Input!')
 
-
+    print('\n')
 
 
 
