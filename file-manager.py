@@ -77,190 +77,252 @@ def list_files(folder_name):
         print(f'Error: {str(error)}')
 # list_files(folder_name)
 def rename_files(folder_name):
-    user = input('Rename single or multiple files: ').lower().strip()
-    if user in ['single' , 's' , 'one' , 'one-file' , 'single-file']:
-        old_name_input = input('Old name of file to rename: ').lower().strip()
-        new_rename_input = input('New name of file to rename: ').lower().strip()
-        old_name = f'{folder_name}/{old_name_input}'
-        new_name = f'{folder_name}/{new_rename_input}'
-        os.rename(old_name , new_name)
-        print(f'Renamed {old_name_input} --> {new_rename_input}')
-    elif user in ['multiple' , 'm' , 'multiple' , 'multiple-files']:
-        new_files_name = input('Enter the new files name: ')
-        extension = input('Extension of file: ')
-        for index , file_name in enumerate(os.listdir(folder_name) , start=1):
-            if file_name.endswith(extension):
-                old_path = f'{folder_name}/{file_name}'
-                new_name = f'{index}-{new_files_name}{extension}'
-                new_path = f'{folder_name}/{new_name}'
-                os.rename(old_path , new_path)
-                print(f'Renamed {file_name} --> {new_name}')
-    else:
-        print(f'Invalid Input!')
-# rename_files(folder_name)
-def move_files(folder_name):
-    user = input('Copy single or multiple files: ').lower().strip()
-    if user in ['single', 's', 'move-single', 'single-file', 'move-single-file']:
-        source_file_name = input('Source file name: ')
-        destination_folder_name = input('Destination folder name: ')
-        source_path = os.path.join(folder_name, source_file_name)
-        destination_folder_path = os.path.join(folder_name, destination_folder_name)
-        if not os.path.exists(destination_folder_path):
-            print(f"Destination folder '{destination_folder_name}' doesn't exist. Creating it...")
-            os.makedirs(destination_folder_path)
-        destination_path = os.path.join(destination_folder_path, source_file_name)
-        try:
-            shutil.move(source_path, destination_path)
-            print(f"Moved: {source_file_name} --> {destination_folder_name}/")
-        except Exception as e:
-            print(f"Error: {e}")
-    elif user in ['multiple', 'm', 'move-multiple', 'multiple-file', 'move-multiple-file']:
-        extension = input('Enter the extension of files: ')
-        destination_folder_name = input('Destination folder name: ')
-        for files in os.listdir(folder_name):
-            if files.endswith(extension):
-                source_path = os.path.join(folder_name, files)
-                destination_folder_path = os.path.join(folder_name, destination_folder_name)
-                if not os.path.exists(destination_folder_path):
-                    print(f"Destination folder '{destination_folder_name}' doesn't exist. Creating it...")
-                    os.makedirs(destination_folder_path)
-                destination_path = os.path.join(destination_folder_path, files)
-                try:
-                    shutil.move(source_path, destination_path)
-                    print(f"Moved: {extension} --> {destination_folder_name}/")
-                except Exception as e:
-                    print(f"Error: {e}")
-    else:
-        print('Invalid Input!')
-# move_files(folder_name)
-def copy_files(folder_name):
-    user = input('Move single or multiple files: ').lower().strip()
-    if user in ['single', 's', 'copy-single', 'single-file', 'copy-single-file']:
-        source_file_name = input('Source file name: ')
-        destination_folder_name = input('Destination folder name: ')
-        source_path = os.path.join(folder_name, source_file_name)
-        destination_folder_path = os.path.join(folder_name, destination_folder_name)
-        if not os.path.exists(destination_folder_path):
-            print(f"Destination folder '{destination_folder_name}' doesn't exist. Creating it...")
-            os.makedirs(destination_folder_path)
-        destination_path = os.path.join(destination_folder_path, source_file_name)
-        try:
-            shutil.copy(source_path, destination_path)
-            print(f"Copy: {source_file_name} --> {destination_folder_name}/")
-        except Exception as e:
-            print(f"Error: {e}")
-    elif user in ['multiple', 'm', 'copy-multiple', 'multiple-file', 'move-copy-file']:
-        extension = input('Enter the extension of files: ')
-        destination_folder_name = input('Destination folder name: ')
-        for files in os.listdir(folder_name):
-            if files.endswith(extension):
-                source_path = os.path.join(folder_name, files)
-                destination_folder_path = os.path.join(folder_name, destination_folder_name)
-                if not os.path.exists(destination_folder_path):
-                    print(f"Destination folder '{destination_folder_name}' doesn't exist. Creating it...")
-                    os.makedirs(destination_folder_path)
-                destination_path = os.path.join(destination_folder_path, files)
-                try:
-                    shutil.copy(source_path, destination_path)
-                    print(f"Copy: {extension} --> {destination_folder_name}/")
-                except Exception as e:
-                    print(f"Error: {e}")
-    else:
-        print('Invalid Input!')
-# copy_files(folder_name)
-def delete_files(folder_name):
-    user = input('Delete (folder/file): ').lower().strip()
-    if user in ['folder' , 'folders' , 'directory']:
-        delete_single_multiple_folder = input('Delete (single/multiple) folder: ').lower().strip()
-        if delete_single_multiple_folder in ['single' , 'single folder']:
-            delete_folder = input('Delete (empty/not empty) single folder: ').lower().strip()
-            if delete_folder in ['empty' , 'empty folder']:
-                empty_folder_name = input('Enter the empty folder name: ')
-                empty_folder_path = os.path.join(folder_name,empty_folder_name)
-                os.rmdir(empty_folder_path)
-                print(f'Delete empty folder: {empty_folder_path}')
-            elif delete_folder in ['not empty' , 'not empty folder']:
-                not_empty_folder_name = input('Enter the not empty folder name: ')
-                not_empty_folder_path = os.path.join(folder_name , not_empty_folder_name)
-                shutil.rmtree(not_empty_folder_path)
-                print(f'Delete not empty folder: {not_empty_folder_path}')
-            else:
-                print('Invalid folder name!')
-
-        elif delete_single_multiple_folder in ['multiple' , 'multiple folder']:
-            delete_folder_multiple = input('Delete (empty/not empty) multiple folders: ').lower().strip()
-            if delete_folder_multiple in ['empty', 'empty folder']:
-                folder_endswith = input('Delete Empty folder name: ')
-                for folder in os.listdir(folder_name):
-                    if folder.endswith(folder_endswith):
-                        os.rmdir(f'{folder_name}/{folder}')
-                        print(f'Delete empty folders: {folder}')
-            elif delete_folder_multiple in ['not empty', 'not empty folder']:
-                multiple_folder_endswith = input('Delete not empty folder name: ')
-                for multiple_folder in os.listdir(folder_name):
-                    if multiple_folder.endswith(multiple_folder_endswith):
-                        shutil.rmtree(f'{folder_name}/{multiple_folder}')
-                        print(f'Delete not empty folders: {multiple_folder}')
-            else:
-                print('Invalid folder name!')
-
-    elif user in ['file' , 'files' ]:
-        if user in ['file', 'files']:
-            single_or_multiple_files = input('Delete (single/multiple) file: ').lower().strip()
-            if single_or_multiple_files in ['single', 'single file']:
-                single_file_name = input('Enter the single file name to delete: ')
-                single_file_path = os.path.join(folder_name, single_file_name)
-                os.remove(single_file_path)
-                print(f'Delete single file: {single_file_path}')
-            elif single_or_multiple_files in ['multiple', 'multiple file']:
-                multiple_file_name = input('Enter the extension of files to delete: ')
-                for files_extension in os.listdir(folder_name):
-                    if files_extension.endswith(multiple_file_name):
-                        multiple_file_path = os.path.join(folder_name, files_extension)
-                        os.remove(multiple_file_path)
-                        print(f'Delete multiple files: {multiple_file_path}')
-                else:
-                    print('Files don\'t exist!')
-            else:
-                print('Invalid file name!')
-    else:
-        print('Invalid Input!')
-# delete_files(folder_name)
-def create_files(folder_name):
-    user = input('Create (files/folders): ').lower().strip()
-    if user in ['file' , 'files' , 'create files']:
-        user_files = input('Create (single/multiple) files: ')
-        if user_files in ['single' , 'single file' , 'single files']:
-            file_name = input('Enter the file name: ')
-            file_extesion = input('Enter the file extension: ')
-            with open(f'{folder_name}/{file_name}{file_extesion}' , 'x'):
-                print(f'Single file is created: {file_name}{file_extesion}')
-        elif user_files in ['multiple' , 'multiple file' , 'multiple files']:
-            multiple_file_name = input('Enter the file names: ')
-            multiple_file_extension = input('Enter the file extension: ')
-            number_of_files = int(input('How many files do you want to create: '))
-            for number in range(1, number_of_files + 1):
-                with open(f'{folder_name}/{number}-{multiple_file_name}{multiple_file_extension}' , 'x'):
-                    print(f'Multiple files are created: {folder_name}{number}{multiple_file_name}{multiple_file_extension}')
-
-    elif user in ['folder' , 'folders' , 'create folders']:
-        single_multiple_folder_name = input('Create (single/multiple) folder: ').lower().strip()
-        if single_multiple_folder_name in ['single' , 'single folder']:
-            single_folder_name = input('Enter the single folder name: ')
-            os.mkdir(f'{folder_name}/{single_folder_name}')
-            print(f'Create single folder: {single_folder_name}')
-        elif single_multiple_folder_name in ['multiple' , 'multiple folder']:
-            multiple_folder_name = input('Enter the file names: ')
-            number_of_folders = int(input('How many folders do you want to create: '))
-            for number in range(1, number_of_folders + 1):
-                os.makedirs(f'{folder_name}/{number}-{multiple_folder_name}')
-                with open(f'{folder_name}/{number}-{multiple_folder_name}/main.py','x'):
-                    pass
+    try:
+        user = input('Rename single or multiple files: ').lower().strip()
+        if user in ['single' , 's' , 'one' , 'one-file' , 'single-file']:
+            old_name_input = input('Old name of file to rename: ').lower().strip()
+            new_rename_input = input('New name of file to rename: ').lower().strip()
+            old_name = f'{folder_name}/{old_name_input}'
+            new_name = f'{folder_name}/{new_rename_input}'
+            os.rename(old_name , new_name)
+            print(f'Renamed {old_name_input} --> {new_rename_input}')
+        elif user in ['multiple' , 'm' , 'multiple' , 'multiple-files']:
+            new_files_name = input('Enter the new files name: ')
+            extension = input('Extension of file: ')
+            for index , file_name in enumerate(os.listdir(folder_name) , start=1):
+                if file_name.endswith(extension):
+                    old_path = f'{folder_name}/{file_name}'
+                    new_name = f'{index}-{new_files_name}{extension}'
+                    new_path = f'{folder_name}/{new_name}'
+                    os.rename(old_path , new_path)
+                    print(f'Renamed {file_name} --> {new_name}')
         else:
             print(f'Invalid Input!')
-    else:
-        print(f'Invalid Input!')
+    except Exception as error:
+        print(f'Error: {str(error)}')
+# rename_files(folder_name)
+def move_files(folder_name):
+    try:
+        user = input('Copy single or multiple files: ').lower().strip()
+        if user in ['single', 's', 'move-single', 'single-file', 'move-single-file']:
+            source_file_name = input('Source file name: ')
+            destination_folder_name = input('Destination folder name: ')
+            source_path = os.path.join(folder_name, source_file_name)
+            destination_folder_path = os.path.join(folder_name, destination_folder_name)
+            if not os.path.exists(destination_folder_path):
+                print(f"Destination folder '{destination_folder_name}' doesn't exist. Creating it...")
+                os.makedirs(destination_folder_path)
+            destination_path = os.path.join(destination_folder_path, source_file_name)
+            try:
+                shutil.move(source_path, destination_path)
+                print(f"Moved: {source_file_name} --> {destination_folder_name}/")
+            except Exception as e:
+                print(f"Error: {e}")
+        elif user in ['multiple', 'm', 'move-multiple', 'multiple-file', 'move-multiple-file']:
+            extension = input('Enter the extension of files: ')
+            destination_folder_name = input('Destination folder name: ')
+            for files in os.listdir(folder_name):
+                if files.endswith(extension):
+                    source_path = os.path.join(folder_name, files)
+                    destination_folder_path = os.path.join(folder_name, destination_folder_name)
+                    if not os.path.exists(destination_folder_path):
+                        print(f"Destination folder '{destination_folder_name}' doesn't exist. Creating it...")
+                        os.makedirs(destination_folder_path)
+                    destination_path = os.path.join(destination_folder_path, files)
+                    try:
+                        shutil.move(source_path, destination_path)
+                        print(f"Moved: {extension} --> {destination_folder_name}/")
+                    except Exception as e:
+                        print(f"Error: {e}")
+        else:
+            print('Invalid Input!')
+    except Exception as error:
+        print(f'Error: {str(error)}')
+# move_files(folder_name)
+def copy_files(folder_name):
+    try:
+        user = input('Move single or multiple files: ').lower().strip()
+        if user in ['single', 's', 'copy-single', 'single-file', 'copy-single-file']:
+            source_file_name = input('Source file name: ')
+            destination_folder_name = input('Destination folder name: ')
+            source_path = os.path.join(folder_name, source_file_name)
+            destination_folder_path = os.path.join(folder_name, destination_folder_name)
+            if not os.path.exists(destination_folder_path):
+                print(f"Destination folder '{destination_folder_name}' doesn't exist. Creating it...")
+                os.makedirs(destination_folder_path)
+            destination_path = os.path.join(destination_folder_path, source_file_name)
+            try:
+                shutil.copy(source_path, destination_path)
+                print(f"Copy: {source_file_name} --> {destination_folder_name}/")
+            except Exception as e:
+                print(f"Error: {e}")
+        elif user in ['multiple', 'm', 'copy-multiple', 'multiple-file', 'move-copy-file']:
+            extension = input('Enter the extension of files: ')
+            destination_folder_name = input('Destination folder name: ')
+            for files in os.listdir(folder_name):
+                if files.endswith(extension):
+                    source_path = os.path.join(folder_name, files)
+                    destination_folder_path = os.path.join(folder_name, destination_folder_name)
+                    if not os.path.exists(destination_folder_path):
+                        print(f"Destination folder '{destination_folder_name}' doesn't exist. Creating it...")
+                        os.makedirs(destination_folder_path)
+                    destination_path = os.path.join(destination_folder_path, files)
+                    try:
+                        shutil.copy(source_path, destination_path)
+                        print(f"Copy: {extension} --> {destination_folder_name}/")
+                    except Exception as e:
+                        print(f"Error: {e}")
+        else:
+            print('Invalid Input!')
+    except Exception as error:
+        print(f'Error: {error}')
+# copy_files(folder_name)
+def delete_files(folder_name):
+    try:
+        user = input('Delete (folder/file): ').lower().strip()
+        if user in ['folder' , 'folders' , 'directory']:
+            delete_single_multiple_folder = input('Delete (single/multiple) folder: ').lower().strip()
+            if delete_single_multiple_folder in ['single' , 'single folder']:
+                delete_folder = input('Delete (empty/not empty) single folder: ').lower().strip()
+                if delete_folder in ['empty' , 'empty folder']:
+                    empty_folder_name = input('Enter the empty folder name: ')
+                    empty_folder_path = os.path.join(folder_name,empty_folder_name)
+                    os.rmdir(empty_folder_path)
+                    print(f'Delete empty folder: {empty_folder_path}')
+                elif delete_folder in ['not empty' , 'not empty folder']:
+                    not_empty_folder_name = input('Enter the not empty folder name: ')
+                    not_empty_folder_path = os.path.join(folder_name , not_empty_folder_name)
+                    shutil.rmtree(not_empty_folder_path)
+                    print(f'Delete not empty folder: {not_empty_folder_path}')
+                else:
+                    print('Invalid folder name!')
+
+            elif delete_single_multiple_folder in ['multiple' , 'multiple folder']:
+                delete_folder_multiple = input('Delete (empty/not empty) multiple folders: ').lower().strip()
+                if delete_folder_multiple in ['empty', 'empty folder']:
+                    folder_endswith = input('Delete Empty folder name: ')
+                    for folder in os.listdir(folder_name):
+                        if folder.endswith(folder_endswith):
+                            os.rmdir(f'{folder_name}/{folder}')
+                            print(f'Delete empty folders: {folder}')
+                elif delete_folder_multiple in ['not empty', 'not empty folder']:
+                    multiple_folder_endswith = input('Delete not empty folder name: ')
+                    for multiple_folder in os.listdir(folder_name):
+                        if multiple_folder.endswith(multiple_folder_endswith):
+                            shutil.rmtree(f'{folder_name}/{multiple_folder}')
+                            print(f'Delete not empty folders: {multiple_folder}')
+                else:
+                    print('Invalid folder name!')
+
+        elif user in ['file' , 'files' ]:
+            if user in ['file', 'files']:
+                single_or_multiple_files = input('Delete (single/multiple) file: ').lower().strip()
+                if single_or_multiple_files in ['single', 'single file']:
+                    single_file_name = input('Enter the single file name to delete: ')
+                    single_file_path = os.path.join(folder_name, single_file_name)
+                    os.remove(single_file_path)
+                    print(f'Delete single file: {single_file_path}')
+                elif single_or_multiple_files in ['multiple', 'multiple file']:
+                    multiple_file_name = input('Enter the extension of files to delete: ')
+                    for files_extension in os.listdir(folder_name):
+                        if files_extension.endswith(multiple_file_name):
+                            multiple_file_path = os.path.join(folder_name, files_extension)
+                            os.remove(multiple_file_path)
+                            print(f'Delete multiple files: {multiple_file_path}')
+                    else:
+                        print('Files don\'t exist!')
+                else:
+                    print('Invalid file name!')
+        else:
+            print('Invalid Input!')
+    except Exception as error:
+        print(f'Error: {str(error)}')
+# delete_files(folder_name)
+def create_files(folder_name):
+    try:
+        user = input('Create (files/folders): ').lower().strip()
+        if user in ['file' , 'files' , 'create files']:
+            user_files = input('Create (single/multiple) files: ')
+            if user_files in ['single' , 'single file' , 'single files']:
+                file_name = input('Enter the file name: ')
+                file_extesion = input('Enter the file extension: ')
+                with open(f'{folder_name}/{file_name}{file_extesion}' , 'x'):
+                    print(f'Single file is created: {file_name}{file_extesion}')
+            elif user_files in ['multiple' , 'multiple file' , 'multiple files']:
+                multiple_file_name = input('Enter the file names: ')
+                multiple_file_extension = input('Enter the file extension: ')
+                number_of_files = int(input('How many files do you want to create: '))
+                for number in range(1, number_of_files + 1):
+                    with open(f'{folder_name}/{number}-{multiple_file_name}{multiple_file_extension}' , 'x'):
+                        print(f'Multiple files are created: {folder_name}{number}{multiple_file_name}{multiple_file_extension}')
+
+        elif user in ['folder' , 'folders' , 'create folders']:
+            single_multiple_folder_name = input('Create (single/multiple) folder: ').lower().strip()
+            if single_multiple_folder_name in ['single' , 'single folder']:
+                single_folder_name = input('Enter the single folder name: ')
+                os.mkdir(f'{folder_name}/{single_folder_name}')
+                print(f'Create single folder: {single_folder_name}')
+            elif single_multiple_folder_name in ['multiple' , 'multiple folder']:
+                multiple_folder_name = input('Enter the file names: ')
+                number_of_folders = int(input('How many folders do you want to create: '))
+                for number in range(1, number_of_folders + 1):
+                    os.makedirs(f'{folder_name}/{number}-{multiple_folder_name}')
+                    with open(f'{folder_name}/{number}-{multiple_folder_name}/main.py','x'):
+                        pass
+            else:
+                print(f'Invalid Input!')
+        else:
+            print(f'Invalid Input!')
+    except Exception as error:
+        print(f'Error: {str(error)}')
 # create_files(folder_name)
+def read_file(folder_name):
+    try:
+        enter_file_name = input('Enter the file name to read: ').lower().strip()
+        file_path = f'{folder_name}/{enter_file_name}'
+        with open(file_path , 'r') as file:
+            file_content = file.read()
+            print(f'\n{file_content}')
+    except Exception as error:
+        print(f'Error: {str(error)}')
+# read_file(folder_name)
+def detail_files(folder_name):
+    try:
+        file_name = input('Enter the file name :')
+        file_path = f'{folder_name}/{file_name}'
+        with open(file_path , 'r') as file:
+            content = file.read()
+            characters = len(content)
+            lines = content.splitlines()
+            words = content.split()
+            print(f'\n\t\tDetail of {file_name} file')
+            print(f'File name: {file_name}')
+            print(f'Total number of characters in {file_name} is {characters}')
+            print(f'Total number of lines in {file_name} is {len(lines)}')
+            print(f'Total number of words in {file_name} is {len(words)}')
+    except Exception as error:
+        print(f'Error: {str(error)}')
+detail_files(folder_name)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
