@@ -59,31 +59,37 @@ import shutil
 
 
 folder_name = input('Enter the folder name: ')
+
 def list_files(folder_name):  # Func to show files and folders
     try:
         file_filter = input('List (all/specific/search) files: ').lower().strip()
-        if file_filter in ['all-files' , 'all' , 'all-file']:   # show all files folder
+
+        # show all files and folders
+        if file_filter in ['all-files' , 'all' , 'all-file']:
             for index , all_files in enumerate(os.listdir(folder_name) , start=1):
                 print(f'{index}. {all_files}')
 
-        elif file_filter in ['specific-file' , 'specific-files' , 'specific']:  # show specific files folder
+        # show specific files and folders with the help of extension
+        elif file_filter in ['specific-file' , 'specific-files' , 'specific']:
             file_extension = input('Enter the specific file extension: ')
             print(f'\t\tList of all {file_extension} files\n')
             for index , all_files in enumerate(os.listdir(folder_name) , start=1):
                 if all_files.endswith(file_extension):
                     print(f'{all_files}')
 
-
-        elif file_filter in ['search' , 'find' , 'check']:     # search file folder
+        # search file and folder
+        elif file_filter in ['search' , 'find' , 'check']:
             search_file_name = input('Enter the file name to search: ')
             if search_file_name in os.listdir(folder_name):
                 print(f'File exist: {search_file_name}')
             else:
                 print(f'File {search_file_name} don\'t exist in {folder_name}')
+
         else:
             print(f'Invalid Input!\nEnter:\n\tall ---> To show all the files and folders')
             print(f'\tspecific ---> To show specific files with extension')
             print(f'\tsearch ---> To check the file exist or not')
+
     # handle exceptions/errors
     except ValueError as error1:
         print(f'Error: {str(error1)}')
@@ -92,18 +98,22 @@ def list_files(folder_name):  # Func to show files and folders
 
 
 
-def rename_files(folder_name):
+def rename_files(folder_name):  # Func to rename files and folders
     try:
-        user = input('Rename single or multiple files: ').lower().strip()
+        user = input('Rename (single/multiple) files: ').lower().strip()
+
+        # rename single file and folders
         if user in ['single' , 's' , 'one' , 'one-file' , 'single-file']:
-            old_name_input = input('Old name of file to rename: ').lower().strip()
-            new_rename_input = input('New name of file to rename: ').lower().strip()
+            old_name_input = input('Old file name with extension to rename: ').lower().strip()
+            new_rename_input = input('New file name withe extension to rename: ').lower().strip()
             old_name = f'{folder_name}/{old_name_input}'
             new_name = f'{folder_name}/{new_rename_input}'
             os.rename(old_name , new_name)
             print(f'Renamed {old_name_input} --> {new_rename_input}')
+
+        # rename multiple files and folders
         elif user in ['multiple' , 'm' , 'multiple' , 'multiple-files']:
-            new_files_name = input('Enter the new files name: ')
+            new_files_name = input('Enter the new files name without extension: ')
             extension = input('Extension of file: ')
             for index , file_name in enumerate(os.listdir(folder_name) , start=1):
                 if file_name.endswith(extension):
@@ -112,11 +122,17 @@ def rename_files(folder_name):
                     new_path = f'{folder_name}/{new_name}'
                     os.rename(old_path , new_path)
                     print(f'Renamed {file_name} --> {new_name}')
+
         else:
-            print(f'Invalid Input!')
+            print(f'Invalid Input!\nEnter:\n\t\tsingle ---> To rename one file\n\t\tmultiple ---> To rename multiple files')
+
+    # Handle execption/errors of rename function
+    except ValueError as error2:
+        print(f'Error: {str(error2)}')
     except Exception as error:
         print(f'Error: {str(error)}')
-# rename_files(folder_name)
+
+
 
 
 def move_files(folder_name):
