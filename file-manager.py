@@ -59,23 +59,39 @@ import shutil
 
 
 folder_name = input('Enter the folder name: ')
-def list_files(folder_name):
+def list_files(folder_name):  # Func to show files and folders
     try:
-        file_filter = input('List all or specific files: ').lower().strip()
-        if file_filter in ['all-files' , 'all' , 'all-file']:
+        file_filter = input('List (all/specific/search) files: ').lower().strip()
+        if file_filter in ['all-files' , 'all' , 'all-file']:   # show all files folder
             for index , all_files in enumerate(os.listdir(folder_name) , start=1):
                 print(f'{index}. {all_files}')
-        elif file_filter in ['specific-file' , 'specific-files' , 'specific']:
+
+        elif file_filter in ['specific-file' , 'specific-files' , 'specific']:  # show specific files folder
             file_extension = input('Enter the specific file extension: ')
             print(f'\t\tList of all {file_extension} files\n')
             for index , all_files in enumerate(os.listdir(folder_name) , start=1):
                 if all_files.endswith(file_extension):
                     print(f'{all_files}')
+
+
+        elif file_filter in ['search' , 'find' , 'check']:     # search file folder
+            search_file_name = input('Enter the file name to search: ')
+            if search_file_name in os.listdir(folder_name):
+                print(f'File exist: {search_file_name}')
+            else:
+                print(f'File {search_file_name} don\'t exist in {folder_name}')
         else:
-            print(f'Invalid Input!')
+            print(f'Invalid Input!\nEnter:\n\tall ---> To show all the files and folders')
+            print(f'\tspecific ---> To show specific files with extension')
+            print(f'\tsearch ---> To check the file exist or not')
+    # handle exceptions/errors
+    except ValueError as error1:
+        print(f'Error: {str(error1)}')
     except Exception as error:
         print(f'Error: {str(error)}')
-# list_files(folder_name)
+
+
+
 def rename_files(folder_name):
     try:
         user = input('Rename single or multiple files: ').lower().strip()
@@ -101,6 +117,8 @@ def rename_files(folder_name):
     except Exception as error:
         print(f'Error: {str(error)}')
 # rename_files(folder_name)
+
+
 def move_files(folder_name):
     try:
         user = input('Copy single or multiple files: ').lower().strip()
@@ -139,6 +157,8 @@ def move_files(folder_name):
     except Exception as error:
         print(f'Error: {str(error)}')
 # move_files(folder_name)
+
+
 def copy_files(folder_name):
     try:
         user = input('Move single or multiple files: ').lower().strip()
@@ -177,6 +197,8 @@ def copy_files(folder_name):
     except Exception as error:
         print(f'Error: {error}')
 # copy_files(folder_name)
+
+
 def delete_files(folder_name):
     try:
         user = input('Delete (folder/file): ').lower().strip()
@@ -238,6 +260,8 @@ def delete_files(folder_name):
     except Exception as error:
         print(f'Error: {str(error)}')
 # delete_files(folder_name)
+
+
 def create_files(folder_name):
     try:
         user = input('Create (files/folders): ').lower().strip()
@@ -286,6 +310,8 @@ def read_file(folder_name):
     except Exception as error:
         print(f'Error: {str(error)}')
 # read_file(folder_name)
+
+
 def detail_files(folder_name):
     try:
         file_name = input('Enter the file name :')
@@ -303,6 +329,8 @@ def detail_files(folder_name):
     except Exception as error:
         print(f'Error: {str(error)}')
 # detail_files(folder_name)
+
+
 while True:
     user = input('What do you want to do (list/rename/move/copy/delete/create/read/detail) file: ').lower().strip()
     if user in ['list file' , 'lists' , 'list files' , 'list']:
@@ -326,7 +354,6 @@ while True:
         break
     else:
         print(f'Invali Input!')
-
     print('\n')
 
 
