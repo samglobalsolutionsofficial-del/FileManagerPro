@@ -57,7 +57,6 @@ import os
 import shutil
 
 
-
 folder_name = input('Enter the folder name: ')
 
 def list_files(folder_name):  # Func to show files and folders
@@ -327,7 +326,6 @@ def read_file(folder_name):
         print(f'Error: {str(error)}')
 # read_file(folder_name)
 
-
 def detail_files(folder_name):
     try:
         file_name = input('Enter the file name :')
@@ -346,6 +344,32 @@ def detail_files(folder_name):
         print(f'Error: {str(error)}')
 # detail_files(folder_name)
 
+def convert_files(folder_name):
+    print('IMPORTANT NOTE:\n\t\tFile Conversion will remove your existing data')
+    user_input = input('Conversion (single/multiple) files: ').lower().strip()
+    if user_input in ['single' , 'single file']:
+        old_file_name = input('Enter old file name with extension to convert: ')
+        new_file_name = input('Enter new file name with extension to convert: ')
+        old_path = f'{folder_name}/{old_file_name}'
+        new_path = f'{folder_name}/{new_file_name}'
+        os.rename(old_path , new_path)
+        print(f'Convert file:\n\t\t{old_file_name} ---> {new_file_name}')
+
+    elif user_input in ['multiple' , 'multiple file' , 'multiple files']:
+        new_files_name = input('Enter the new files name without extension: ')
+        old_extension = input('Enter old extension of file: ')
+        new_extension = input('Enter new extension of file: ')
+        for index, file_name in enumerate(os.listdir(folder_name), start=1):
+            if file_name.endswith(old_extension):
+                old_path = f'{folder_name}/{file_name}'
+                new_name = f'{index}-{new_files_name}{new_extension}'
+                new_path = f'{folder_name}/{new_name}'
+                os.rename(old_path, new_path)
+                print(f'Convert file: {file_name} --> {new_name}')
+    else:
+        print("Invalid Input!")
+        print(f'Enter:\n\t\tsingle ---> To convert single file')
+        print(f'\t\tmultiple ---> To convert multiple files')
 
 while True:
     user = input('What do you want to do (list/rename/move/copy/delete/create/read/detail) file: ').lower().strip()
@@ -365,6 +389,8 @@ while True:
         read_file(folder_name)
     elif user in ['detail file' , 'detail' , 'detail files']:
         detail_files(folder_name)
+    elif user in ['convert file' , 'convert' , 'converter']:
+        convert_files(folder_name)
     elif user in ['exit' , 'stop' , 'quite']:
         print('Exit the program!')
         break
