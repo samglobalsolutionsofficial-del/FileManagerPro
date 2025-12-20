@@ -53,13 +53,15 @@
 #
 # 18. Batch Rename
 #     - Rename multiple files based on regex or sequence
+
 import os
 import shutil
 
 
-folder_name = input('Enter the folder name: ')
+folder_name = input('Enter the folder name: ') # main folder name
 
-def list_files(folder_name):  # Func to show files and folders
+# Func to show files and folders
+def list_files(folder_name):
     try:
         file_filter = input('List (all/specific/search) files: ').lower().strip()
 
@@ -97,7 +99,8 @@ def list_files(folder_name):  # Func to show files and folders
 
 
 
-def rename_files(folder_name):  # Func to rename files and folders
+# Func to rename files and folders
+def rename_files(folder_name):
     try:
         user = input('Rename (single/multiple) files: ').lower().strip()
 
@@ -132,18 +135,21 @@ def rename_files(folder_name):  # Func to rename files and folders
         print(f'Error: {str(error)}')
 
 
-
-
+# Func to move the files and folders
 def move_files(folder_name):
     try:
-        user = input('Copy single or multiple files: ').lower().strip()
-        if user in ['single', 's', 'move-single', 'single-file', 'move-single-file']:
-            source_file_name = input('Source file name: ')
-            destination_folder_name = input('Destination folder name: ')
+        user = input('Move (single/multiple) files: ').lower().strip()
+
+        # move single file
+        if user in ['single', 's', 'move single', 'single file', 'move single file']:
+            source_file_name = input('Enter the name of file to move (source path): ')
+            destination_folder_name = input('Enter the name of folder to move (destination path): ')
             source_path = os.path.join(folder_name, source_file_name)
             destination_folder_path = os.path.join(folder_name, destination_folder_name)
+
+            # create folder if folder don't exist
             if not os.path.exists(destination_folder_path):
-                print(f"Destination folder '{destination_folder_name}' doesn't exist. Creating it...")
+                print(f"Destination folder '{destination_folder_name}' doesn't exist\nCreating it...")
                 os.makedirs(destination_folder_path)
             destination_path = os.path.join(destination_folder_path, source_file_name)
             try:
@@ -151,15 +157,21 @@ def move_files(folder_name):
                 print(f"Moved: {source_file_name} --> {destination_folder_name}/")
             except Exception as e:
                 print(f"Error: {e}")
-        elif user in ['multiple', 'm', 'move-multiple', 'multiple-file', 'move-multiple-file']:
-            extension = input('Enter the extension of files: ')
-            destination_folder_name = input('Destination folder name: ')
+
+        # move multiple files
+        elif user in ['multiple', 'm', 'move multiple', 'multiple file', 'move multiple file']:
+            extension = input('Enter the extension of files to move: ')
+            destination_folder_name = input('Enter the folder name to move (destination path): ')
+
+            # list all the files and folders of folder_name
             for files in os.listdir(folder_name):
+                # list specific files with the help of extension
                 if files.endswith(extension):
                     source_path = os.path.join(folder_name, files)
                     destination_folder_path = os.path.join(folder_name, destination_folder_name)
+                    # create the folder if the folder don't exist
                     if not os.path.exists(destination_folder_path):
-                        print(f"Destination folder '{destination_folder_name}' doesn't exist. Creating it...")
+                        print(f"Destination folder '{destination_folder_name}' doesn't exist.\nCreating it...")
                         os.makedirs(destination_folder_path)
                     destination_path = os.path.join(destination_folder_path, files)
                     try:
@@ -168,10 +180,10 @@ def move_files(folder_name):
                     except Exception as e:
                         print(f"Error: {e}")
         else:
-            print('Invalid Input!')
+            print('Invalid Input!\nEnter:\n\t\tsingle ---> To move single file\n\t\tmultiple ---> To move multiple files')
+            # handle exception and errors
     except Exception as error:
         print(f'Error: {str(error)}')
-# move_files(folder_name)
 
 
 def copy_files(folder_name):
