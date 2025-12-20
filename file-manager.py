@@ -106,8 +106,8 @@ def rename_files(folder_name):
 
         # rename single file and folders
         if user in ['single' , 's' , 'one' , 'one-file' , 'single-file']:
-            old_name_input = input('Old file name with extension to rename: ').lower().strip()
-            new_rename_input = input('New file name withe extension to rename: ').lower().strip()
+            old_name_input = input('Old file name with extension to rename: ')
+            new_rename_input = input('New file name withe extension to rename: ')
             old_name = f'{folder_name}/{old_name_input}'
             new_name = f'{folder_name}/{new_rename_input}'
             os.rename(old_name , new_name)
@@ -128,7 +128,7 @@ def rename_files(folder_name):
         else:
             print(f'Invalid Input!\nEnter:\n\t\tsingle ---> To rename one file\n\t\tmultiple ---> To rename multiple files')
 
-    # Handle execption/errors of rename function
+    # Handle exception and errors of rename function
     except ValueError as error2:
         print(f'Error: {str(error2)}')
     except Exception as error:
@@ -186,44 +186,111 @@ def move_files(folder_name):
         print(f'Error: {str(error)}')
 
 
+
+# Func to copy the files and folders
 def copy_files(folder_name):
     try:
-        user = input('Move single or multiple files: ').lower().strip()
-        if user in ['single', 's', 'copy-single', 'single-file', 'copy-single-file']:
-            source_file_name = input('Source file name: ')
-            destination_folder_name = input('Destination folder name: ')
-            source_path = os.path.join(folder_name, source_file_name)
-            destination_folder_path = os.path.join(folder_name, destination_folder_name)
-            if not os.path.exists(destination_folder_path):
-                print(f"Destination folder '{destination_folder_name}' doesn't exist. Creating it...")
-                os.makedirs(destination_folder_path)
-            destination_path = os.path.join(destination_folder_path, source_file_name)
-            try:
-                shutil.copy(source_path, destination_path)
-                print(f"Copy: {source_file_name} --> {destination_folder_name}/")
-            except Exception as e:
-                print(f"Error: {e}")
-        elif user in ['multiple', 'm', 'copy-multiple', 'multiple-file', 'move-copy-file']:
-            extension = input('Enter the extension of files: ')
-            destination_folder_name = input('Destination folder name: ')
-            for files in os.listdir(folder_name):
-                if files.endswith(extension):
-                    source_path = os.path.join(folder_name, files)
+        files_folders = input('Copy (file/folder): ').lower().strip()
+
+        # copy the files only
+        if files_folders in ['file' , 'files' , 'copy file' , 'copy files']:
+            user = input('Copy (single/multiple) file: ').lower().strip()
+
+            # copy single files
+            if user in ['single', 's', 'copy single', 'single file', 'copy single file']:
+                source_file_name = input('Enter the file name to copy (source path): ')
+                destination_folder_name = input('Enter the folder name to copy (destination path): ')
+                source_path = os.path.join(folder_name, source_file_name)
+                destination_folder_path = os.path.join(folder_name, destination_folder_name)
+
+                # if the folder don't exist then create it
+                if not os.path.exists(destination_folder_path):
+                    print(f"Destination folder '{destination_folder_name}' doesn't exist.\nCreating it...")
+                    os.makedirs(destination_folder_path)
+                destination_path = os.path.join(destination_folder_path, source_file_name)
+                try:
+                    shutil.copy(source_path, destination_path)
+                    print(f"Copy: {source_file_name} --> {destination_folder_name}/")
+                except Exception as e:
+                    print(f"Error: {e}")
+
+            # copy multiple files
+            elif user in ['multiple', 'm', 'copy-multiple', 'multiple-file', 'move-copy-file']:
+                extension = input('Enter the extension of files to copy (source path): ')
+                destination_folder_name = input('Enter the folder name to copy (destination path): ')
+
+                # list all the files and folders of folder_name
+                for files in os.listdir(folder_name):
+                    # list of specific files with the help of extension
+                    if files.endswith(extension):
+                        source_path = os.path.join(folder_name, files)
+                        destination_folder_path = os.path.join(folder_name, destination_folder_name)
+
+                        # if the folder don't exist then create it
+                        if not os.path.exists(destination_folder_path):
+                            print(f"Destination folder '{destination_folder_name}' doesn't exist.\nCreating it...")
+                            os.makedirs(destination_folder_path)
+                        destination_path = os.path.join(destination_folder_path, files)
+                        try:
+                            shutil.copy(source_path, destination_path)
+                            print(f"Copy: {extension} --> {destination_folder_name}/")
+                        except Exception as e:
+                            print(f"Error: {e}")
+            else:
+                print('Invalid Input!\nEnter:\n\t\tsingle ---> To copy single files\n\t\tmultiple ---> To copy multiple files')
+
+        # copy folder only
+        elif files_folders in ['folder' , 'folders' , 'copy folders' , 'copy folder']:
+            if files_folders in ['folder', 'folders', 'copy folder', 'copy folder']:
+                user1 = input('Copy (single/multiple) folder: ').lower().strip()
+
+                # copy single folder
+                if user1 in ['single', 's', 'copy single', 'single folder', 'copy single folder']:
+                    source_file_name = input('Enter the folder name to copy (source path): ')
+                    destination_folder_name = input('Enter the folder name to copy (destination path): ')
+                    source_path = os.path.join(folder_name, source_file_name)
                     destination_folder_path = os.path.join(folder_name, destination_folder_name)
+
+                    # if the folder don't exist then create it
                     if not os.path.exists(destination_folder_path):
-                        print(f"Destination folder '{destination_folder_name}' doesn't exist. Creating it...")
+                        print(f"Destination folder '{destination_folder_name}' doesn't exist.\nCreating it...")
                         os.makedirs(destination_folder_path)
-                    destination_path = os.path.join(destination_folder_path, files)
+                    destination_path = os.path.join(destination_folder_path, source_file_name)
                     try:
-                        shutil.copy(source_path, destination_path)
-                        print(f"Copy: {extension} --> {destination_folder_name}/")
+                        shutil.copytree(source_path, destination_path)
+                        print(f"Copy: {source_file_name} --> {destination_folder_name}/")
                     except Exception as e:
                         print(f"Error: {e}")
-        else:
-            print('Invalid Input!')
+
+                # copy multiple folders
+                elif user1 in ['multiple', 'm', 'copy multiple', 'multiple folder', 'move copy folder']:
+                    extension = input('Enter the extension of files to copy (source path): ')
+                    destination_folder_name = input('Enter the folder name to copy (destination path): ')
+
+                    # list all the files and folders of folder_name
+                    for files in os.listdir(folder_name):
+                        # list of specific files with the help of extension
+                        if files.endswith(extension):
+                            source_path = os.path.join(folder_name, files)
+                            destination_folder_path = os.path.join(folder_name, destination_folder_name)
+
+                            # if the folder don't exist then create it
+                            if not os.path.exists(destination_folder_path):
+                                print(f"Destination folder '{destination_folder_name}' doesn't exist.\nCreating it...")
+                                os.makedirs(destination_folder_path)
+                            destination_path = os.path.join(destination_folder_path, files)
+                            try:
+                                shutil.copytree(source_path, destination_path)
+                                print(f"Copy: {extension} --> {destination_folder_name}/")
+                            except Exception as e:
+                                print(f"Error: {e}")
+                else:
+                    print(
+                        'Invalid Input!\nEnter:\n\t\tsingle ---> To copy single folder\n\t\tmultiple ---> To copy multiple folder')
+
     except Exception as error:
         print(f'Error: {error}')
-# copy_files(folder_name)
+
 
 
 def delete_files(folder_name):
@@ -286,7 +353,7 @@ def delete_files(folder_name):
             print('Invalid Input!')
     except Exception as error:
         print(f'Error: {str(error)}')
-# delete_files(folder_name)
+
 
 
 def create_files(folder_name):
