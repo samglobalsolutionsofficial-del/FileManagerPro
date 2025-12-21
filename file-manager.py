@@ -292,65 +292,105 @@ def copy_files(folder_name):
         print(f'Error: {error}')
 
 
-
+# Func to delete files and folders
 def delete_files(folder_name):
     try:
         user = input('Delete (folder/file): ').lower().strip()
+
+        # Delete folders
         if user in ['folder' , 'folders' , 'directory']:
             delete_single_multiple_folder = input('Delete (single/multiple) folder: ').lower().strip()
+
+            # Delete single folder
             if delete_single_multiple_folder in ['single' , 'single folder']:
                 delete_folder = input('Delete (empty/not empty) single folder: ').lower().strip()
+
+                # delete single empty folder
                 if delete_folder in ['empty' , 'empty folder']:
-                    empty_folder_name = input('Enter the empty folder name: ')
+                    empty_folder_name = input('Enter the empty folder name to delete: ')
                     empty_folder_path = os.path.join(folder_name,empty_folder_name)
                     os.rmdir(empty_folder_path)
+                    print('\n')
                     print(f'Delete empty folder: {empty_folder_path}')
+
+                # delete single not empty folder
                 elif delete_folder in ['not empty' , 'not empty folder']:
-                    not_empty_folder_name = input('Enter the not empty folder name: ')
+                    not_empty_folder_name = input('Enter the not empty folder name to delete: ')
                     not_empty_folder_path = os.path.join(folder_name , not_empty_folder_name)
                     shutil.rmtree(not_empty_folder_path)
+                    print('\n')
                     print(f'Delete not empty folder: {not_empty_folder_path}')
-                else:
-                    print('Invalid folder name!')
 
+                else:
+                    print('\n')
+                    print('Invalid Input!\nEnter:\n\t\tempty ---> To delete empty single folder')
+                    print('\t\tnot empty ---> To delete not empty single folder')
+
+            # Delete multiple folders
             elif delete_single_multiple_folder in ['multiple' , 'multiple folder']:
                 delete_folder_multiple = input('Delete (empty/not empty) multiple folders: ').lower().strip()
+
+                # Delete all empty folders
                 if delete_folder_multiple in ['empty', 'empty folder']:
-                    folder_endswith = input('Delete Empty folder name: ')
+                    folder_endswith = input('Enter the same extension of empty folders to delete: ')
                     for folder in os.listdir(folder_name):
                         if folder.endswith(folder_endswith):
                             os.rmdir(f'{folder_name}/{folder}')
-                            print(f'Delete empty folders: {folder}')
+                            print('\n')
+                            print(f'Delete all empty folders: {folder}')
+
+                # Delete all not empty folders
                 elif delete_folder_multiple in ['not empty', 'not empty folder']:
-                    multiple_folder_endswith = input('Delete not empty folder name: ')
+                    multiple_folder_endswith = input('Enter the same extension of not empty folders to delete: ')
                     for multiple_folder in os.listdir(folder_name):
                         if multiple_folder.endswith(multiple_folder_endswith):
                             shutil.rmtree(f'{folder_name}/{multiple_folder}')
-                            print(f'Delete not empty folders: {multiple_folder}')
+                            print('\n')
+                            print(f'Delete all not empty folders: {multiple_folder}')
                 else:
-                    print('Invalid folder name!')
+                    print('\n')
+                    print('Invalid Input!\nEnter:\n\t\tempty ---> To delete multiple empty folders')
+                    print(f'\t\tnot empty ---> To delete multiple not empty folders')
+            else:
+                print('\n')
+                print(f'Invalid Input!\n\t\tEnter:\n\t\tsingle ---> To delete single folder')
+                print(f'\t\tmultiple ---> To delete multiple folders')
 
+        # Delete files
         elif user in ['file' , 'files' ]:
             if user in ['file', 'files']:
                 single_or_multiple_files = input('Delete (single/multiple) file: ').lower().strip()
+
+                # Delete single file
                 if single_or_multiple_files in ['single', 'single file']:
                     single_file_name = input('Enter the single file name to delete: ')
                     single_file_path = os.path.join(folder_name, single_file_name)
                     os.remove(single_file_path)
+                    print('\n')
                     print(f'Delete single file: {single_file_path}')
+
+                # Delete multiple files
                 elif single_or_multiple_files in ['multiple', 'multiple file']:
-                    multiple_file_name = input('Enter the extension of files to delete: ')
+                    multiple_file_name = input('Enter the same extension of files to delete: ')
                     for files_extension in os.listdir(folder_name):
                         if files_extension.endswith(multiple_file_name):
                             multiple_file_path = os.path.join(folder_name, files_extension)
                             os.remove(multiple_file_path)
-                            print(f'Delete multiple files: {multiple_file_path}')
+                            print('\n')
+                            print(f'Delete all multiple files: {multiple_file_path}')
                     else:
                         print('Files don\'t exist!')
+
                 else:
-                    print('Invalid file name!')
+                    print('\n')
+                    print('Invalid Input!\nEnter:\n\t\tsingle ---> To delete single file')
+                    print('\t\tmultiple ---> To delete multiple files')
+
         else:
-            print('Invalid Input!')
+            print('\n')
+            print('Invalid Input!\nEnter:\n\t\tfile ---> To delete files\n\t\tfolder ---> To delete folders')
+
+    # handle error and exceptions
     except Exception as error:
         print(f'Error: {str(error)}')
 
@@ -385,8 +425,8 @@ def create_files(folder_name):
                 number_of_folders = int(input('How many folders do you want to create: '))
                 for number in range(1, number_of_folders + 1):
                     os.makedirs(f'{folder_name}/{number}-{multiple_folder_name}')
-                    with open(f'{folder_name}/{number}-{multiple_folder_name}/main.py','x'):
-                        pass
+                    # with open(f'{folder_name}/{number}-{multiple_folder_name}/main.py','x'):
+                    #     pass
             else:
                 print(f'Invalid Input!')
         else:
