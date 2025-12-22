@@ -395,45 +395,89 @@ def delete_files(folder_name):
         print(f'Error: {str(error)}')
 
 
-
+# Func to create files and folders
 def create_files(folder_name):
     try:
-        user = input('Create (files/folders): ').lower().strip()
+        user = input('Create (file/folder): ').lower().strip()
+
+        # Create files
         if user in ['file' , 'files' , 'create files']:
             user_files = input('Create (single/multiple) files: ')
+
+            # Create single file
             if user_files in ['single' , 'single file' , 'single files']:
-                file_name = input('Enter the file name: ')
-                file_extesion = input('Enter the file extension: ')
-                with open(f'{folder_name}/{file_name}{file_extesion}' , 'x'):
-                    print(f'Single file is created: {file_name}{file_extesion}')
+                file_name = input('Enter the name of file to create without extension: ')
+                file_extension = input('Enter the file extension to create file: ')
+                with open(f'{folder_name}/{file_name}{file_extension}' , 'x'):
+                    print(f'\nSingle file is Created: {file_name}{file_extension}')
+
+
+            # Create multiple files
             elif user_files in ['multiple' , 'multiple file' , 'multiple files']:
-                multiple_file_name = input('Enter the file names: ')
+                multiple_file_name = input('Enter the name of multiple files without extension: ')
                 multiple_file_extension = input('Enter the file extension: ')
                 number_of_files = int(input('How many files do you want to create: '))
                 for number in range(1, number_of_files + 1):
                     with open(f'{folder_name}/{number}-{multiple_file_name}{multiple_file_extension}' , 'x'):
-                        print(f'Multiple files are created: {folder_name}{number}{multiple_file_name}{multiple_file_extension}')
+                        print(f'\nMultiple files are Created: {folder_name}/{number}{multiple_file_name}{multiple_file_extension}')
+            else:
+                print(f'Invalid Input!\nEnter:\n\t\tsingle ---> To create single file')
+                print(f'\t\tmultiple ---> To create multiple files')
 
+        # Create folders
         elif user in ['folder' , 'folders' , 'create folders']:
             single_multiple_folder_name = input('Create (single/multiple) folder: ').lower().strip()
+
+            # Create single folder
             if single_multiple_folder_name in ['single' , 'single folder']:
-                single_folder_name = input('Enter the single folder name: ')
+                single_folder_name = input('Enter the name of folder to create: ')
                 os.mkdir(f'{folder_name}/{single_folder_name}')
-                print(f'Create single folder: {single_folder_name}')
+                print(f'\nCreate single folder: {single_folder_name}')
+
+                # Create single folder with single and multiple file
+                folder_with_file = input('Do you want to create file in this folder(yes/no): ').lower().strip()
+                if folder_with_file == 'yes':
+                    single_multiple = input('Create (single/multiple) file: ').lower().strip()
+
+                    # Create single file in single folder
+                    if single_multiple == 'single':
+                        file_name = input('Enter the name of file with extension: ')
+                        with open(f'\n{folder_name}/{single_folder_name}/{file_name}' , 'x'):
+                            print(f'Create {single_folder_name} folder with {file_name} file.')
+
+                    # Create multiple files in single folder
+                    elif single_multiple == 'multiple':
+                        file_n = input('Enter the name of files with extension to create in folder: ')
+                        no_of_files = int(input('How many files do you want to create: '))
+                        for number in range(1 , no_of_files +1):
+                            with open(f'\n{folder_name}/{single_folder_name}/{number}-{file_n}' , 'x'):
+                                print(f'Files are created in {single_folder_name}')
+
+
+            # Create multiple folders
             elif single_multiple_folder_name in ['multiple' , 'multiple folder']:
-                multiple_folder_name = input('Enter the file names: ')
+                multiple_folder_name = input('Enter multiple folders name: ')
                 number_of_folders = int(input('How many folders do you want to create: '))
                 for number in range(1, number_of_folders + 1):
-                    os.makedirs(f'{folder_name}/{number}-{multiple_folder_name}')
-                    # with open(f'{folder_name}/{number}-{multiple_folder_name}/main.py','x'):
-                    #     pass
+                    multiple_folder_path = f'{folder_name}/{number}-{multiple_folder_name}'
+                    os.makedirs(multiple_folder_path)
+                    print(f'Multiple Folders are Created! ---> {multiple_folder_path}')
+
+
             else:
-                print(f'Invalid Input!')
+                print(f'Invalid Input!\nEnter:\n\t\tsingle ---> To create single folder')
+                print(f'\t\tmultiple ---> To create multiple folders')
+
         else:
-            print(f'Invalid Input!')
+            print(f'Invalid Input!\nEnter:\n\t\tfile ---> To create files')
+            print(f'\t\tfolder ---> To create folders')
+
+    # handle errors
     except Exception as error:
         print(f'Error: {str(error)}')
-# create_files(folder_name)
+
+
+
 def read_file(folder_name):
     try:
         enter_file_name = input('Enter the file name to read: ').lower().strip()
