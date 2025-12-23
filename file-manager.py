@@ -67,13 +67,16 @@ def list_files(folder_name):
 
         # show all files and folders
         if file_filter in ['all-files' , 'all' , 'all-file']:
+            print('\n')
             for index , all_files in enumerate(os.listdir(folder_name) , start=1):
                 print(f'{index}. {all_files}')
+
 
         # show specific files and folders with the help of extension
         elif file_filter in ['specific-file' , 'specific-files' , 'specific']:
             file_extension = input('Enter the specific file extension: ')
             print(f'\t\tList of all {file_extension} files\n')
+            print('\n')
             for index , all_files in enumerate(os.listdir(folder_name) , start=1):
                 if all_files.endswith(file_extension):
                     print(f'{all_files}')
@@ -81,6 +84,7 @@ def list_files(folder_name):
         # search file and folder
         elif file_filter in ['search' , 'find' , 'check']:
             search_file_name = input('Enter the file name to search: ')
+            print('\n')
             if search_file_name in os.listdir(folder_name):
                 print(f'File exist: {search_file_name}')
             else:
@@ -111,6 +115,7 @@ def rename_files(folder_name):
             old_name = f'{folder_name}/{old_name_input}'
             new_name = f'{folder_name}/{new_rename_input}'
             os.rename(old_name , new_name)
+            print('\n')
             print(f'Renamed {old_name_input} --> {new_rename_input}')
 
         # rename multiple files and folders
@@ -118,6 +123,7 @@ def rename_files(folder_name):
             new_files_name = input('Enter the new files name without extension: ')
             extension = input('Extension of file: ')
             for index , file_name in enumerate(os.listdir(folder_name) , start=1):
+                print('\n')
                 if file_name.endswith(extension):
                     old_path = f'{folder_name}/{file_name}'
                     new_name = f'{index}-{new_files_name}{extension}'
@@ -154,6 +160,7 @@ def move_files(folder_name):
             destination_path = os.path.join(destination_folder_path, source_file_name)
             try:
                 shutil.move(source_path, destination_path)
+                print('\n')
                 print(f"Moved: {source_file_name} --> {destination_folder_name}/")
             except Exception as e:
                 print(f"Error: {e}")
@@ -176,6 +183,7 @@ def move_files(folder_name):
                     destination_path = os.path.join(destination_folder_path, files)
                     try:
                         shutil.move(source_path, destination_path)
+                        print('\n')
                         print(f"Moved: {extension} --> {destination_folder_name}/")
                     except Exception as e:
                         print(f"Error: {e}")
@@ -210,6 +218,7 @@ def copy_files(folder_name):
                 destination_path = os.path.join(destination_folder_path, source_file_name)
                 try:
                     shutil.copy(source_path, destination_path)
+                    print('\n')
                     print(f"Copy: {source_file_name} --> {destination_folder_name}/")
                 except Exception as e:
                     print(f"Error: {e}")
@@ -233,6 +242,7 @@ def copy_files(folder_name):
                         destination_path = os.path.join(destination_folder_path, files)
                         try:
                             shutil.copy(source_path, destination_path)
+                            print('\n')
                             print(f"Copy: {extension} --> {destination_folder_name}/")
                         except Exception as e:
                             print(f"Error: {e}")
@@ -258,6 +268,7 @@ def copy_files(folder_name):
                     destination_path = os.path.join(destination_folder_path, source_file_name)
                     try:
                         shutil.copytree(source_path, destination_path)
+                        print('\n')
                         print(f"Copy: {source_file_name} --> {destination_folder_name}/")
                     except Exception as e:
                         print(f"Error: {e}")
@@ -281,6 +292,7 @@ def copy_files(folder_name):
                             destination_path = os.path.join(destination_folder_path, files)
                             try:
                                 shutil.copytree(source_path, destination_path)
+                                print('\n')
                                 print(f"Copy: {extension} --> {destination_folder_name}/")
                             except Exception as e:
                                 print(f"Error: {e}")
@@ -333,19 +345,19 @@ def delete_files(folder_name):
                 # Delete all empty folders
                 if delete_folder_multiple in ['empty', 'empty folder']:
                     folder_endswith = input('Enter the same extension of empty folders to delete: ')
+                    print('\n')
                     for folder in os.listdir(folder_name):
                         if folder.endswith(folder_endswith):
                             os.rmdir(f'{folder_name}/{folder}')
-                            print('\n')
                             print(f'Delete all empty folders: {folder}')
 
                 # Delete all not empty folders
                 elif delete_folder_multiple in ['not empty', 'not empty folder']:
                     multiple_folder_endswith = input('Enter the same extension of not empty folders to delete: ')
+                    print('\n')
                     for multiple_folder in os.listdir(folder_name):
                         if multiple_folder.endswith(multiple_folder_endswith):
                             shutil.rmtree(f'{folder_name}/{multiple_folder}')
-                            print('\n')
                             print(f'Delete all not empty folders: {multiple_folder}')
                 else:
                     print('\n')
@@ -372,11 +384,11 @@ def delete_files(folder_name):
                 # Delete multiple files
                 elif single_or_multiple_files in ['multiple', 'multiple file']:
                     multiple_file_name = input('Enter the same extension of files to delete: ')
+                    print('\n')
                     for files_extension in os.listdir(folder_name):
                         if files_extension.endswith(multiple_file_name):
                             multiple_file_path = os.path.join(folder_name, files_extension)
                             os.remove(multiple_file_path)
-                            print('\n')
                             print(f'Delete all multiple files: {multiple_file_path}')
                     else:
                         print('Files don\'t exist!')
@@ -408,8 +420,9 @@ def create_files(folder_name):
             if user_files in ['single' , 'single file' , 'single files']:
                 file_name = input('Enter the name of file to create without extension: ')
                 file_extension = input('Enter the file extension to create file: ')
+                print('\n')
                 with open(f'{folder_name}/{file_name}{file_extension}' , 'x'):
-                    print(f'\nSingle file is Created: {file_name}{file_extension}')
+                    print(f'Single file is Created: {file_name}{file_extension}')
 
 
             # Create multiple files
@@ -417,9 +430,10 @@ def create_files(folder_name):
                 multiple_file_name = input('Enter the name of multiple files without extension: ')
                 multiple_file_extension = input('Enter the file extension: ')
                 number_of_files = int(input('How many files do you want to create: '))
+                print('\n')
                 for number in range(1, number_of_files + 1):
                     with open(f'{folder_name}/{number}-{multiple_file_name}{multiple_file_extension}' , 'x'):
-                        print(f'\nMultiple files are Created: {folder_name}/{number}{multiple_file_name}{multiple_file_extension}')
+                        print(f'Multiple files are Created: {folder_name}/{number}{multiple_file_name}{multiple_file_extension}')
             else:
                 print(f'Invalid Input!\nEnter:\n\t\tsingle ---> To create single file')
                 print(f'\t\tmultiple ---> To create multiple files')
@@ -432,7 +446,8 @@ def create_files(folder_name):
             if single_multiple_folder_name in ['single' , 'single folder']:
                 single_folder_name = input('Enter the name of folder to create: ')
                 os.mkdir(f'{folder_name}/{single_folder_name}')
-                print(f'\nCreate single folder: {single_folder_name}')
+                print('\n')
+                print(f'Create single folder: {single_folder_name}')
 
                 # Create single folder with single and multiple file
                 folder_with_file = input('Do you want to create file in this folder(yes/no): ').lower().strip()
@@ -442,15 +457,17 @@ def create_files(folder_name):
                     # Create single file in single folder
                     if single_multiple == 'single':
                         file_name = input('Enter the name of file with extension: ')
-                        with open(f'\n{folder_name}/{single_folder_name}/{file_name}' , 'x'):
+                        print('\n')
+                        with open(f'{folder_name}/{single_folder_name}/{file_name}' , 'x'):
                             print(f'Create {single_folder_name} folder with {file_name} file.')
 
                     # Create multiple files in single folder
                     elif single_multiple == 'multiple':
                         file_n = input('Enter the name of files with extension to create in folder: ')
                         no_of_files = int(input('How many files do you want to create: '))
+                        print('\n')
                         for number in range(1 , no_of_files +1):
-                            with open(f'\n{folder_name}/{single_folder_name}/{number}-{file_n}' , 'x'):
+                            with open(f'{folder_name}/{single_folder_name}/{number}-{file_n}' , 'x'):
                                 print(f'Files are created in {single_folder_name}')
 
 
@@ -458,13 +475,50 @@ def create_files(folder_name):
             elif single_multiple_folder_name in ['multiple' , 'multiple folder']:
                 multiple_folder_name = input('Enter multiple folders name: ')
                 number_of_folders = int(input('How many folders do you want to create: '))
-                for number in range(1, number_of_folders + 1):
-                    multiple_folder_path = f'{folder_name}/{number}-{multiple_folder_name}'
-                    os.makedirs(multiple_folder_path)
-                    print(f'Multiple Folders are Created! ---> {multiple_folder_path}')
 
+
+                # Var_ which ask the user to create only folders , folders with single or multiple files
+                files_with_folders = input('Create (folders only/folders with single file/folders with multiple files): ').lower().strip()
+
+                # Create only multiple folders
+                if files_with_folders in ['folders' , 'folders only']:
+                    print('\n')
+                    for number in range(1, number_of_folders + 1):
+                        multiple_folder_path = f'{folder_name}/{number}-{multiple_folder_name}/'
+                        os.makedirs(multiple_folder_path)
+                        print(f'Multiple Folders are Created! ---> {multiple_folder_path}')
+
+                # Create single file in each folder
+                elif files_with_folders in ['folders with single file']:
+                    add_file_folder = input('Name with extension of file to create in each folder: ')  # add file in each folder
+                    print('\n')
+                    for number in range(1, number_of_folders + 1):
+                        folder_path = f'{folder_name}/{number}-{multiple_folder_name}'
+                        os.makedirs(folder_path)
+                        folderpath_filepath = f'{folder_path}/{add_file_folder}'
+                        with open(f'{folderpath_filepath}' , 'x'):
+                            print(f'Create file in each folder! ---> {folderpath_filepath}')
+
+                # Create multiple files in each folder
+                elif files_with_folders in ['folders with multiple files']:
+                    multiple_files_name = input('Name of multiple files with extension to create in each folder: ')
+                    no_of_mul_files = int(input('How many files you create in each folder: '))
+                    print('\n')
+                    for folder_number in range(1 , number_of_folders + 1):
+                        folder_path = f'{folder_name}/{folder_number}-{multiple_folder_name}'
+                        os.makedirs(folder_path)
+                        for file_number in range(1 , no_of_mul_files + 1):
+                            folder_path_mul_files = f'{folder_path}/{file_number}-{multiple_files_name}'
+                            with open(f'{folder_path_mul_files}' , 'x'):
+                                print(f'Create multiple files in each folder! ---> {folder_path_mul_files}')
+                else:
+                    print('\n')
+                    print(f'Invalid Input!\nEnter:\n\t\tfolders only ---> To create only multiple folders')
+                    print(f'\t\tfolders with single file ---> To create single file in each folder')
+                    print(f'\t\tfolders with multiple file ---> To create multiple files in each folder')
 
             else:
+
                 print(f'Invalid Input!\nEnter:\n\t\tsingle ---> To create single folder')
                 print(f'\t\tmultiple ---> To create multiple folders')
 
