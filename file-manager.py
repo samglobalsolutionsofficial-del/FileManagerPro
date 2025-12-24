@@ -531,17 +531,24 @@ def create_files(folder_name):
         print(f'Error: {str(error)}')
 
 
-
+# Func to read the file
 def read_file(folder_name):
     try:
         enter_file_name = input('Enter the file name to read: ').lower().strip()
         file_path = f'{folder_name}/{enter_file_name}'
+
+        # open and read the file content 
         with open(file_path , 'r') as file:
             file_content = file.read()
             print(f'\n{file_content}')
+
+    # handle the errors
+    except FileNotFoundError as error1:
+        print(f'Error: {str(error1)}')
     except Exception as error:
         print(f'Error: {str(error)}')
-# read_file(folder_name)
+
+
 
 def detail_files(folder_name):
     try:
