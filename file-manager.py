@@ -549,40 +549,52 @@ def read_file(folder_name):
         print(f'Error: {str(error)}')
 
 
-
+# Func to show the details of files
 def detail_files(folder_name):
     try:
         file_name = input('Enter the file name :')
         file_path = f'{folder_name}/{file_name}'
+
+        # open and read all the file
         with open(file_path , 'r') as file:
             content = file.read()
-            characters = len(content)
-            lines = content.splitlines()
-            words = content.split()
+            characters = len(content)     # show all the number characters
+            lines = content.splitlines()  # show all number of lines
+            words = content.split()       # show all the number of words
+
             print(f'\n\t\tDetail of {file_name} file')
             print(f'File name: {file_name}')
-            print(f'Total number of characters in {file_name} is {characters}')
-            print(f'Total number of lines in {file_name} is {len(lines)}')
-            print(f'Total number of words in {file_name} is {len(words)}')
+            print(f'Total number of characters: {characters}')
+            print(f'Total number of lines: {len(lines)}')
+            print(f'Total number of words: {len(words)}')
+
+    # handle the exception errors
     except Exception as error:
         print(f'Error: {str(error)}')
-# detail_files(folder_name)
 
+# Func to convert one file to another file
 def convert_files(folder_name):
-    print('IMPORTANT NOTE:\n\t\tFile Conversion will remove your existing data')
+    print('\nIMPORTANT NOTE:\n\t\tFile Conversion will remove your existing data')
     user_input = input('Conversion (single/multiple) files: ').lower().strip()
+
+    # Convert single file form one type to another type
     if user_input in ['single' , 'single file']:
         old_file_name = input('Enter old file name with extension to convert: ')
         new_file_name = input('Enter new file name with extension to convert: ')
         old_path = f'{folder_name}/{old_file_name}'
         new_path = f'{folder_name}/{new_file_name}'
+
         os.rename(old_path , new_path)
+        print('\n')
         print(f'Convert file:\n\t\t{old_file_name} ---> {new_file_name}')
 
+    # Convert multiple files from one type to another type
     elif user_input in ['multiple' , 'multiple file' , 'multiple files']:
         new_files_name = input('Enter the new files name without extension: ')
         old_extension = input('Enter old extension of file: ')
         new_extension = input('Enter new extension of file: ')
+
+        print('\n')
         for index, file_name in enumerate(os.listdir(folder_name), start=1):
             if file_name.endswith(old_extension):
                 old_path = f'{folder_name}/{file_name}'
