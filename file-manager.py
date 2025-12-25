@@ -57,11 +57,12 @@
 import os
 import shutil
 
-
-folder_name = input('Enter the folder name: ') # main folder name
+# main folder name
+folder_name = input('Enter the folder name: ')
 
 # Func to show files and folders
 def list_files(folder_name):
+    global index
     try:
         file_filter = input('List (all/specific/search) files: ').lower().strip()
 
@@ -70,6 +71,8 @@ def list_files(folder_name):
             print('\n')
             for index , all_files in enumerate(os.listdir(folder_name) , start=1):
                 print(f'{index}. {all_files}')
+            else:
+                print(f'\nTotal Number of files and folders: {index}')
 
 
         # show specific files and folders with the help of extension
@@ -80,6 +83,8 @@ def list_files(folder_name):
             for index , all_files in enumerate(os.listdir(folder_name) , start=1):
                 if all_files.endswith(file_extension):
                     print(f'{all_files}')
+                else:
+                    print(f'\nTotal Number of files and folders: {index}')
 
         # search file and folder
         elif file_filter in ['search' , 'find' , 'check']:
@@ -91,7 +96,7 @@ def list_files(folder_name):
                 print(f'File {search_file_name} don\'t exist in {folder_name}')
 
         else:
-            print(f'Invalid Input!\nEnter:\n\tall ---> To show all the files and folders')
+            print(f'Invalid Input!\nEnter Commands:\n\tall ---> To show all the files and folders')
             print(f'\tspecific ---> To show specific files with extension')
             print(f'\tsearch ---> To check the file exist or not')
 
@@ -100,7 +105,6 @@ def list_files(folder_name):
         print(f'Error: {str(error1)}')
     except Exception as error:
         print(f'Error: {str(error)}')
-
 
 
 # Func to rename files and folders
@@ -132,7 +136,7 @@ def rename_files(folder_name):
                     print(f'Renamed {file_name} --> {new_name}')
 
         else:
-            print(f'Invalid Input!\nEnter:\n\t\tsingle ---> To rename one file\n\t\tmultiple ---> To rename multiple files')
+            print(f'Invalid Input!\nEnter Commands:\n\t\tsingle ---> To rename one file\n\t\tmultiple ---> To rename multiple files')
 
     # Handle exception and errors of rename function
     except ValueError as error2:
@@ -171,6 +175,7 @@ def move_files(folder_name):
             destination_folder_name = input('Enter the folder name to move (destination path): ')
 
             # list all the files and folders of folder_name
+            print('\n')
             for files in os.listdir(folder_name):
                 # list specific files with the help of extension
                 if files.endswith(extension):
@@ -183,16 +188,14 @@ def move_files(folder_name):
                     destination_path = os.path.join(destination_folder_path, files)
                     try:
                         shutil.move(source_path, destination_path)
-                        print('\n')
                         print(f"Moved: {extension} --> {destination_folder_name}/")
                     except Exception as e:
                         print(f"Error: {e}")
         else:
-            print('Invalid Input!\nEnter:\n\t\tsingle ---> To move single file\n\t\tmultiple ---> To move multiple files')
+            print('Invalid Input!\nEnter Commands:\n\t\tsingle ---> To move single file\n\t\tmultiple ---> To move multiple files')
             # handle exception and errors
     except Exception as error:
         print(f'Error: {str(error)}')
-
 
 
 # Func to copy the files and folders
@@ -247,7 +250,7 @@ def copy_files(folder_name):
                         except Exception as e:
                             print(f"Error: {e}")
             else:
-                print('Invalid Input!\nEnter:\n\t\tsingle ---> To copy single files\n\t\tmultiple ---> To copy multiple files')
+                print('Invalid Input!\nEnter Commands:\n\t\tsingle ---> To copy single files\n\t\tmultiple ---> To copy multiple files')
 
         # copy folder only
         elif files_folders in ['folder' , 'folders' , 'copy folders' , 'copy folder']:
@@ -298,7 +301,7 @@ def copy_files(folder_name):
                                 print(f"Error: {e}")
                 else:
                     print(
-                        'Invalid Input!\nEnter:\n\t\tsingle ---> To copy single folder\n\t\tmultiple ---> To copy multiple folder')
+                        'Invalid Input!\nEnter Commands:\n\t\tsingle ---> To copy single folder\n\t\tmultiple ---> To copy multiple folder')
 
     except Exception as error:
         print(f'Error: {error}')
@@ -335,7 +338,7 @@ def delete_files(folder_name):
 
                 else:
                     print('\n')
-                    print('Invalid Input!\nEnter:\n\t\tempty ---> To delete empty single folder')
+                    print('Invalid Input!\nEnter Commands:\n\t\tempty ---> To delete empty single folder')
                     print('\t\tnot empty ---> To delete not empty single folder')
 
             # Delete multiple folders
@@ -361,11 +364,11 @@ def delete_files(folder_name):
                             print(f'Delete all not empty folders: {multiple_folder}')
                 else:
                     print('\n')
-                    print('Invalid Input!\nEnter:\n\t\tempty ---> To delete multiple empty folders')
+                    print('Invalid Input!\nEnter Commands:\n\t\tempty ---> To delete multiple empty folders')
                     print(f'\t\tnot empty ---> To delete multiple not empty folders')
             else:
                 print('\n')
-                print(f'Invalid Input!\n\t\tEnter:\n\t\tsingle ---> To delete single folder')
+                print(f'Invalid Input!\n\t\tEnter Commands:\n\t\tsingle ---> To delete single folder')
                 print(f'\t\tmultiple ---> To delete multiple folders')
 
         # Delete files
@@ -395,12 +398,12 @@ def delete_files(folder_name):
 
                 else:
                     print('\n')
-                    print('Invalid Input!\nEnter:\n\t\tsingle ---> To delete single file')
+                    print('Invalid Input!\nEnter Commands:\n\t\tsingle ---> To delete single file')
                     print('\t\tmultiple ---> To delete multiple files')
 
         else:
             print('\n')
-            print('Invalid Input!\nEnter:\n\t\tfile ---> To delete files\n\t\tfolder ---> To delete folders')
+            print('Invalid Input!\nEnter Commands:\n\t\tfile ---> To delete files\n\t\tfolder ---> To delete folders')
 
     # handle error and exceptions
     except Exception as error:
@@ -435,7 +438,7 @@ def create_files(folder_name):
                     with open(f'{folder_name}/{number}-{multiple_file_name}{multiple_file_extension}' , 'x'):
                         print(f'Multiple files are Created: {folder_name}/{number}{multiple_file_name}{multiple_file_extension}')
             else:
-                print(f'Invalid Input!\nEnter:\n\t\tsingle ---> To create single file')
+                print(f'Invalid Input!\nEnter Commands:\n\t\tsingle ---> To create single file')
                 print(f'\t\tmultiple ---> To create multiple files')
 
         # Create folders
@@ -513,17 +516,17 @@ def create_files(folder_name):
                                 print(f'Create multiple files in each folder! ---> {folder_path_mul_files}')
                 else:
                     print('\n')
-                    print(f'Invalid Input!\nEnter:\n\t\tfolders only ---> To create only multiple folders')
+                    print(f'Invalid Input!\nEnter Commands:\n\t\tfolders only ---> To create only multiple folders')
                     print(f'\t\tfolders with single file ---> To create single file in each folder')
                     print(f'\t\tfolders with multiple file ---> To create multiple files in each folder')
 
             else:
 
-                print(f'Invalid Input!\nEnter:\n\t\tsingle ---> To create single folder')
+                print(f'Invalid Input!\nEnter Commands:\n\t\tsingle ---> To create single folder')
                 print(f'\t\tmultiple ---> To create multiple folders')
 
         else:
-            print(f'Invalid Input!\nEnter:\n\t\tfile ---> To create files')
+            print(f'Invalid Input!\nEnter Commands:\n\t\tfile ---> To create files')
             print(f'\t\tfolder ---> To create folders')
 
     # handle errors
@@ -572,6 +575,7 @@ def detail_files(folder_name):
     except Exception as error:
         print(f'Error: {str(error)}')
 
+
 # Func to convert one file to another file
 def convert_files(folder_name):
     print('\nIMPORTANT NOTE:\n\t\tFile Conversion will remove your existing data')
@@ -604,11 +608,15 @@ def convert_files(folder_name):
                 print(f'Convert file: {file_name} --> {new_name}')
     else:
         print("Invalid Input!")
-        print(f'Enter:\n\t\tsingle ---> To convert single file')
+        print(f'Enter Commands:\n\t\tsingle ---> To convert single file')
         print(f'\t\tmultiple ---> To convert multiple files')
 
+
+# Repeat the program
 while True:
-    user = input('What do you want to do (list/rename/move/copy/delete/create/read/detail) file: ').lower().strip()
+    user = input('What do you want to do: ').lower().strip()
+
+    # Show results on the basics of Conditional Statements
     if user in ['list file' , 'lists' , 'list files' , 'list']:
         list_files(folder_name)
     elif user in ['rename file' , 'rename' , 'renames' , 'rename files']:
@@ -630,8 +638,20 @@ while True:
     elif user in ['exit' , 'stop' , 'quite']:
         print('Exit the program!')
         break
+
     else:
-        print(f'Invali Input!')
+        print('\n')
+        print(f'Invalid Input!\nEnter Commands:')
+        print(f'\t\tlist    ---> To list all the file and folder.')
+        print(f'\t\trename  ---> To rename file and folder.')
+        print(f'\t\tmove    ---> To move file and folder.')
+        print(f'\t\tcopy    ---> To copy file and folder.')
+        print(f'\t\tdelete  ---> To delete file and folder.')
+        print(f'\t\tcreate  ---> To create file and folder.')
+        print(f'\t\tread    ---> To read file and folder.')
+        print(f'\t\tdetail  ---> To detail file and folder.')
+        print(f'\t\tconvert ---> To convert file and folder.')
+        print(f'\t\texit    ---> To exit file and folder.')
     print('\n')
 
 
