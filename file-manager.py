@@ -1,58 +1,7 @@
-# File Manager CLI Actions
-#
-# 1. List Files
-#    - Show all files in a directory
-#    - Filter by file type or extension
-#
-# 2. Rename Files
-#    - Rename single or multiple files based on pattern
-#
-# 3. Move Files
-#    - Move files from one folder to another
-#
-# 4. Copy Files
-#    - Copy files from source to destination folder
-#
-# 5. Delete Files
-#    - Delete specified files or batch delete
-#
-# 6. Create File
-#    - Create a new empty file or with content
-#
-# 7. Read File
-#    - Display contents of a file
-#
-# 8. Write to File
-#    - Write or append content to a file
-#
-# 9. Search Files
-#    - Search files by name or content keyword
-#
-# 10. Get File Info
-#     - Show metadata: size, creation date, modification date, type
-#
-# 11. Sort Files
-#     - Sort files by size, date, name
-#
-# 12. Filter Files
-#     - Filter files by size, date range, or extension
-#
-# 13. Count Files
-#     - Count number of files in folder or by type
-#
-# 14. Change File Permissions
-#     - Modify read/write/execute permissions (Linux/Mac)
-#
-# 15. Archive Files
-#     - Compress files into zip or tar archive
-#
-# 16. Extract Archive
-#     - Extract zip, tar, or other compressed files
-#
-# 17. Watch Folder-Monitor folder changes (optional advanced)
-#
-# 18. Batch Rename
-#     - Rename multiple files based on regex or sequence
+
+print('\n\t<<<<<...File Manager...>>>>>')
+print('\t----------------------------\n')
+
 
 import os
 import shutil
@@ -80,11 +29,13 @@ def list_files(folder_name):
             file_extension = input('Enter the specific file extension: ')
             print(f'\t\tList of all {file_extension} files\n')
             print('\n')
-            for index , all_files in enumerate(os.listdir(folder_name) , start=1):
+            file_num = 0
+            for all_files in os.listdir(folder_name):
                 if all_files.endswith(file_extension):
                     print(f'{all_files}')
-                else:
-                    print(f'\nTotal Number of files and folders: {index}')
+                    file_num += 1
+            print(f'\nTotal Number of {file_extension} files: {file_num}')
+
 
         # search file and folder
         elif file_filter in ['search' , 'find' , 'check']:
@@ -653,53 +604,4 @@ while True:
         print(f'\t\tconvert ---> To convert file and folder.')
         print(f'\t\texit    ---> To exit file and folder.')
     print('\n')
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
