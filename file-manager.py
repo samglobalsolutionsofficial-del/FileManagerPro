@@ -651,6 +651,146 @@ def convert_files(folder_name):
         print(f'\t\tmultiple ---> To convert multiple files')
 
 
+# Func to organize the files into main folders
+def organize_files(folder_name):
+    """Func to organize all the files and folders into the main folder"""
+    try:
+
+        folders_extension = input('Extension of folders to move: ')
+        # list all the files and folders
+        for files in os.listdir(folder_name):
+
+            # Organize document files
+            document = 'Document'
+            document_extensions = ['.md','.pdf', '.doc', '.docx', '.txt', '.xls', '.xlsx', '.ppt', '.pptx', '.odt', '.rtf']
+            for doc_files in document_extensions:
+                if files.endswith(doc_files):
+                    source_path = os.path.join(folder_name, files)
+                    destination_folder_name = document
+                    destination_folder_path = f'{folder_name}/{destination_folder_name}'
+                    if not os.path.exists(destination_folder_path):
+                        os.makedirs(destination_folder_path)
+                    destination_path = f'{destination_folder_path}/{files}'
+                    shutil.move(source_path, destination_path)
+                    print(f'{files} ---> {destination_folder_name}')
+
+
+            # Organize image files
+            image = 'Image'
+            image_extensions = ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.tiff', '.svg', '.webp', '.ico']
+            for image_files in image_extensions:
+                if files.endswith(image_files):
+                    source_path = os.path.join(folder_name , files)
+                    destination_folder_name = image
+                    destination_folder_path = f'{folder_name}/{destination_folder_name}'
+                    if not os.path.exists(destination_folder_path):
+                        os.makedirs(destination_folder_path)
+                    destination_path = f'{destination_folder_path}/{files}'
+                    shutil.move(source_path , destination_path)
+                    print(f'{image_files} ---> {destination_folder_name}')
+
+            # Organize video files
+            video = 'Video'
+            video_extensions = ['.mp4', '.mkv', '.mov', '.avi', '.flv', '.wmv', '.webm', '.3gp']
+            for video_files in video_extensions:
+                if files.endswith(video_files):
+                    source_path = os.path.join(folder_name , files)
+                    destination_folder_name = video
+                    destination_folder_path = f'{folder_name}/{destination_folder_name}'
+                    if not os.path.exists(destination_folder_path):
+                        os.makedirs(destination_folder_path)
+                    destination_path = f'{destination_folder_path}/{files}'
+                    shutil.move(source_path , destination_path)
+                    print(f'{files} ---> {destination_folder_name}')
+
+            # Organize Audio files
+            audio = 'Audio'
+            audio_extensions = ['.mp3', '.wav', '.aac', '.flac', '.ogg', '.wma', '.m4a']
+            for audio_files in audio_extensions:
+                if files.endswith(audio_files):
+                    source_path = os.path.join(folder_name , files)
+                    destination_folder_name = audio
+                    destination_folder_path = f'{folder_name}/{destination_folder_name}'
+                    if not os.path.exists(destination_folder_path):
+                        os.makedirs(destination_folder_path)
+                    destination_path = f'{destination_folder_path}/{files}'
+                    shutil.move(source_path , destination_path)
+                    print(f'{files} ---> {destination_folder_name}')
+
+            # Organize other files
+            other_file = 'Other File'
+            other_extensions = ['.db', '.log', '.tmp', '.bak' , '.ini' , '.csv' , '.ods' , '.iso' , '.tex']
+            for other_files in other_extensions:
+                if files.endswith(other_files):
+                    source_path = os.path.join(folder_name , files)
+                    destination_folder_name = other_file
+                    destination_folder_path = f'{folder_name}/{destination_folder_name}'
+                    if not os.path.exists(destination_folder_path):
+                        os.makedirs(destination_folder_path)
+                    destination_path = f'{destination_folder_path}/{files}'
+                    shutil.move(source_path , destination_path)
+                    print(f'{files} ---> {destination_folder_name}')
+
+            # Organize archive files
+            archive_extensions = ['.zip', '.rar', '.tar', '.gz', '.7z', '.bz2', '.xz']
+            archive_folder = 'Archive'
+            for archive_files in archive_extensions:
+                if files.endswith(archive_files):
+                    source_path = os.path.join(folder_name , files)
+                    destination_folder_name = archive_folder
+                    destination_folder_path = f'{folder_name}/{destination_folder_name}'
+                    if not os.path.exists(destination_folder_path):
+                        os.makedirs(destination_folder_path)
+                    destination_path = f'{destination_folder_path}/{files}'
+                    shutil.move(source_path , destination_path)
+                    print(f'{files} ---> {destination_folder_name}')
+
+            # Organize code files
+            code_extensions = ['.py', '.js', '.html', '.css', '.cpp', '.c', '.java', '.php', '.rb', '.sh', '.json', '.xml']
+            code_folder = 'Other File'
+            for code_files in code_extensions:
+                if files.endswith(code_files):
+                    source_path = os.path.join(folder_name , files)
+                    destination_folder_name = code_folder
+                    destination_folder_path = f'{folder_name}/{destination_folder_name}'
+                    if not os.path.exists(destination_folder_path):
+                        os.makedirs(destination_folder_path)
+                    destination_path = f'{destination_folder_path}/{files}'
+                    shutil.move(source_path , destination_path)
+                    print(f'{files} ---> {destination_folder_name}')
+
+            # Organize executable/installer files
+            executable_extensions = ['.exe', '.msi', '.apk', '.bat', '.bin', '.sh']
+            executable_folder = 'Installer'
+            for executable_files in executable_extensions:
+                if files.endswith(executable_files):
+                    source_path = os.path.join(folder_name , files)
+                    destination_folder_name = executable_folder
+                    destination_folder_path = f'{folder_name}/{destination_folder_name}'
+                    if not os.path.exists(destination_folder_path):
+                        os.makedirs(destination_folder_path)
+                    destination_path = f'{destination_folder_path}/{files}'
+                    shutil.move(source_path , destination_path)
+                    print(f'{files} ---> {destination_folder_name}')
+
+            # Organize folders with specific extension
+            folder = 'Folder'
+            if files.endswith(folders_extension):
+                source_path = os.path.join(folder_name, files)
+                destination_folder_name = folder
+                destination_folder_path = f'{folder_name}/{destination_folder_name}'
+                if not os.path.exists(destination_folder_path):
+                    os.makedirs(destination_folder_path)
+                destination_path = f'{destination_folder_path}/{files}'
+                shutil.move(source_path, destination_path)
+                print(f'{files} ---> {destination_folder_name}')
+
+    # handle exceptions and errors
+    except Exception as error1:
+        print(f'Error: {str(error1)}')
+
+
+
 # Repeat the program
 while True:
     user = input('What do you want to do: ').lower().strip()
@@ -674,6 +814,8 @@ while True:
         detail_files(folder_name)
     elif user in ['convert file' , 'convert' , 'converter']:
         convert_files(folder_name)
+    elif user in ['organize' , 'organize file']:
+        organize_files(folder_name)
     elif user in ['exit' , 'stop' , 'quite']:
         print('Exit the program!')
         break
@@ -681,15 +823,16 @@ while True:
     else:
         print('\n')
         print(f'Invalid Input!\nEnter Commands:')
-        print(f'\t\tlist    ---> To list all the file and folder.')
-        print(f'\t\trename  ---> To rename file and folder.')
-        print(f'\t\tmove    ---> To move file and folder.')
-        print(f'\t\tcopy    ---> To copy file and folder.')
-        print(f'\t\tdelete  ---> To delete file and folder.')
-        print(f'\t\tcreate  ---> To create file and folder.')
-        print(f'\t\tread    ---> To read file and folder.')
-        print(f'\t\tdetail  ---> To detail file and folder.')
-        print(f'\t\tconvert ---> To convert file and folder.')
-        print(f'\t\texit    ---> To exit file and folder.')
+        print(f'\t\tlist     ---> To list all the file and folder.')
+        print(f'\t\trename   ---> To rename file and folder.')
+        print(f'\t\tmove     ---> To move file and folder.')
+        print(f'\t\tcopy     ---> To copy file and folder.')
+        print(f'\t\tdelete   ---> To delete file and folder.')
+        print(f'\t\tcreate   ---> To create file and folder.')
+        print(f'\t\tread     ---> To read file and folder.')
+        print(f'\t\tdetail   ---> To detail file and folder.')
+        print(f'\t\tconvert  ---> To convert file and folder.')
+        print(f'\t\texit     ---> To exit file and folder.')
+        print(f'\t\torganize ---> To organize file and folder.')
     print('\n')
 
