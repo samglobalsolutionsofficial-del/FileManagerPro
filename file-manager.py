@@ -11,6 +11,14 @@ folder_name = input('Enter the folder name: ')
 
 # Func to show files and folders
 def list_files(folder_name):
+    """
+    Func To Show Files And Folders:
+    Features/Usage:
+            all      ---> Show all the files and folders and also the total number of files and folders.
+            specific ---> Show specific files also folders with the help of specific extension.
+                          Also, the total number of specific files.
+            search   ---> Find and check the specific folder or file is present or not.
+    """
     global index
     try:
         file_filter = input('List (all/specific/search) files: ').lower().strip()
@@ -60,6 +68,12 @@ def list_files(folder_name):
 
 # Func to rename files and folders
 def rename_files(folder_name):
+    """
+    Func To Rename File And Folder:
+    Features/Usage:
+            single   ---> Rename single file and folder by using proper file and folder name.
+            multiple ---> Rename multiple files and folders by using the extensions of file and folder.
+    """
     try:
         user = input('Rename (single/multiple) files: ').lower().strip()
 
@@ -98,6 +112,14 @@ def rename_files(folder_name):
 
 # Func to move the files and folders
 def move_files(folder_name):
+    """
+    Func To Move File And Folder:
+    Feature/Usage:
+           single   ---> Move single file and folder to the destination folder.
+                         When the destination folder don't exist then create it.
+           multiple ---> Move multiple file and folder to the destination folder.
+                         When the destination folder don't exist then create it.
+    """
     try:
         user = input('Move (single/multiple) files: ').lower().strip()
 
@@ -151,6 +173,21 @@ def move_files(folder_name):
 
 # Func to copy the files and folders
 def copy_files(folder_name):
+    """
+    Func To Copy File And Folder:
+    Features/Usage:
+                  file   ---> Copy file only.
+                     single   ---> Copy only single files to the destination folder.
+                                   When the destination folder don't exist then create it.
+                     multiple ---> Copy only multiple files to the destination folder.
+                                   When the destination folder don't exist then create it.
+
+                  folder ---> Copy folder only.
+                     single   ---> Copy only single folder to the destination folder.
+                                   When the destination folder don't exist then create it.
+                     multiple ---> Copy only multiple folders to the destination folder.
+                                   When the destination folder don't exist then create it.
+    """
     try:
         files_folders = input('Copy (file/folder): ').lower().strip()
 
@@ -260,6 +297,21 @@ def copy_files(folder_name):
 
 # Func to delete files and folders
 def delete_files(folder_name):
+    """
+    Func To Delete File And Folder:
+    Features/Usage:
+                  file   ---> Delete file only.
+                     single   ---> Delete only single file.
+                     multiple ---> Delete only multiple files.
+
+                  folder ---> Delete folder only.
+                     single   ---> Delete only single folder.
+                          empty     ---> Delete single empty folder.
+                          not empty ---> Delete single not empty folder.
+                     multiple ---> Delete only multiple folders.
+                          empty     ---> Delete multiple empty folder.
+                          not empty ---> Delete multiple not empty folder.
+    """
     try:
         user = input('Delete (folder/file): ').lower().strip()
 
@@ -363,6 +415,23 @@ def delete_files(folder_name):
 
 # Func to create files and folders
 def create_files(folder_name):
+    """
+    Func To Create File And Folder:
+    Features/Usage:
+                  file   ---> Create file only.
+                      single   ---> Create single file only.
+                      multiple ---> Create multiple files only.
+                  folder ---> Create folder only.
+                      single   ---> Create single folder only.
+                            yes ---> Create folder with file.
+                                single   ---> Create single folder with single file.
+                                multiple ---> Create single folder with multiple file.
+                            no  ---> Create only single folder.
+                      multiple ---> Create multiple folder only.
+                               folders only                 ---> Create only multiple folders.
+                               folders with single file     ---> Create only multiple folders with single file.
+                               folders with multiple files  ---> Create only multiple folders with multiple files.
+    """
     try:
         user = input('Create (file/folder): ').lower().strip()
 
@@ -487,6 +556,11 @@ def create_files(folder_name):
 
 # Func to read the file
 def read_file(folder_name):
+    """
+    Func To Read The File:
+    Features/Usage:
+                  Enter the file name with extension to read the file.
+    """
     try:
         enter_file_name = input('Enter the file name to read: ').lower().strip()
         file_path = f'{folder_name}/{enter_file_name}'
@@ -505,6 +579,14 @@ def read_file(folder_name):
 
 # Func to show the details of files
 def detail_files(folder_name):
+    """
+    Func To Show The File Details:
+    Features/Usage:
+                  Show the file name and type.
+                  Show the total number of characters of file.
+                  Show the total number of lines of file.
+                  Show the total number of words of file.
+    """
     try:
         file_name = input('Enter the file name :')
         file_path = f'{folder_name}/{file_name}'
@@ -529,6 +611,12 @@ def detail_files(folder_name):
 
 # Func to convert one file to another file
 def convert_files(folder_name):
+    """
+    Func To Convert The File Type Into Another Type:
+    Features/Usage:
+                 single   ---> Convert single file type into another file type.
+                 multiple ---> Convert multiple files type into another files type.
+    """
     print('\nIMPORTANT NOTE:\n\t\tFile Conversion will remove your existing data')
     user_input = input('Conversion (single/multiple) files: ').lower().strip()
 
