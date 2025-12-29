@@ -5,12 +5,20 @@ print('\t----------------------------\n')
 
 import os
 import shutil
+import argparse
 
-# main folder name
+# Add CLI feature now run the program from the terminal
+parser = argparse.ArgumentParser('File Manager')
+parser.add_argument('Commands' , help='Available Commands' ,
+                    choices=['show' , 'rename' , 'move' , 'copy' , 'delete' , 'create' ,
+                             'read' , 'detail' , 'convert' , 'organize'])
+args = parser.parse_args()
+
+
 folder_name = input('Enter the folder name: ')
 
 # Func to show files and folders
-def list_files(folder_name):
+def show_files(folder_name):
     """
     Func To Show Files And Folders:
     Features/Usage:
@@ -718,7 +726,7 @@ def organize_files(folder_name):
                     print(f'{files} ---> {destination_folder_name}')
 
             # Organize other files
-            other_file = 'Other File'
+            other_file = 'Download Data/Other File'
             other_extensions = ['.db', '.log', '.tmp', '.bak' , '.ini' , '.csv' , '.ods' , '.iso' , '.tex']
             for other_files in other_extensions:
                 if files.endswith(other_files):
@@ -791,48 +799,40 @@ def organize_files(folder_name):
 
 
 
-# Repeat the program
-while True:
-    user = input('What do you want to do: ').lower().strip()
-
-    # Show results on the basics of Conditional Statements
-    if user in ['list file' , 'lists' , 'list files' , 'list']:
-        list_files(folder_name)
-    elif user in ['rename file' , 'rename' , 'renames' , 'rename files']:
-        rename_files(folder_name)
-    elif user in ['move file' , 'move' , 'moves' , 'move files']:
-        move_files(folder_name)
-    elif user in ['copy file' , 'copy' , 'copy files']:
-        copy_files(folder_name)
-    elif user in ['delete file' , 'delete' , 'deletes' , 'delete files']:
-        delete_files(folder_name)
-    elif user in ['create file' , 'create' , 'create files']:
-        create_files(folder_name)
-    elif user in ['read file' , 'read' , 'read files']:
-        read_file(folder_name)
-    elif user in ['detail file' , 'detail' , 'detail files']:
-        detail_files(folder_name)
-    elif user in ['convert file' , 'convert' , 'converter']:
-        convert_files(folder_name)
-    elif user in ['organize' , 'organize file']:
-        organize_files(folder_name)
-    elif user in ['exit' , 'stop' , 'quite']:
-        print('Exit the program!')
-        break
-
-    else:
-        print('\n')
-        print(f'Invalid Input!\nEnter Commands:')
-        print(f'\t\tlist     ---> To list all the file and folder.')
-        print(f'\t\trename   ---> To rename file and folder.')
-        print(f'\t\tmove     ---> To move file and folder.')
-        print(f'\t\tcopy     ---> To copy file and folder.')
-        print(f'\t\tdelete   ---> To delete file and folder.')
-        print(f'\t\tcreate   ---> To create file and folder.')
-        print(f'\t\tread     ---> To read file and folder.')
-        print(f'\t\tdetail   ---> To detail file and folder.')
-        print(f'\t\tconvert  ---> To convert file and folder.')
-        print(f'\t\texit     ---> To exit file and folder.')
-        print(f'\t\torganize ---> To organize file and folder.')
+# Show results on the basics of Conditional Statements
+if args.Commands in ['show','list file' , 'lists' , 'list files' , 'list']:
+    show_files(folder_name)
+elif args.Commands in ['rename file' , 'rename' , 'renames' , 'rename files']:
+    rename_files(folder_name)
+elif args.Commands in ['move file' , 'move' , 'moves' , 'move files']:
+    move_files(folder_name)
+elif args.Commands in ['copy file' , 'copy' , 'copy files']:
+    copy_files(folder_name)
+elif args.Commands in ['delete file' , 'delete' , 'deletes' , 'delete files']:
+    delete_files(folder_name)
+elif args.Commands in ['create file' , 'create' , 'create files']:
+    create_files(folder_name)
+elif args.Commands in ['read file' , 'read' , 'read files']:
+    read_file(folder_name)
+elif args.Commands in ['detail file' , 'detail' , 'detail files']:
+    detail_files(folder_name)
+elif args.Commands in ['convert file' , 'convert' , 'converter']:
+    convert_files(folder_name)
+elif args.Commands in ['organize' , 'organize file']:
+    organize_files(folder_name)
+else:
     print('\n')
+    print(f'Invalid Input!\nEnter Commands:')
+    print(f'\t\tlist     ---> To list all the file and folder.')
+    print(f'\t\trename   ---> To rename file and folder.')
+    print(f'\t\tmove     ---> To move file and folder.')
+    print(f'\t\tcopy     ---> To copy file and folder.')
+    print(f'\t\tdelete   ---> To delete file and folder.')
+    print(f'\t\tcreate   ---> To create file and folder.')
+    print(f'\t\tread     ---> To read file and folder.')
+    print(f'\t\tdetail   ---> To detail file and folder.')
+    print(f'\t\tconvert  ---> To convert file and folder.')
+    print(f'\t\texit     ---> To exit file and folder.')
+    print(f'\t\torganize ---> To organize file and folder.')
+print('\n')
 
