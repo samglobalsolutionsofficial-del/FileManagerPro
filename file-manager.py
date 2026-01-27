@@ -413,7 +413,7 @@ def convert_files(folder_name):
     if user_input in ['single' , 'single file']:
         old_file_name = input('Enter old file name with extension to convert: ')
         new_file_name = input('Enter new file name with extension to convert: ')
-        old_path = f'{folder_name}/{oldfile_name}'
+        old_path = f'{folder_name}/{old_file_name}'
         new_path = f'{folder_name}/{new_file_name}'
         os.rename(old_path , new_path)
         print(f'Convert file:\n\t\t{old_file_name} ---> {new_file_name}')
