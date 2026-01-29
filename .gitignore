@@ -1,1 +1,7 @@
 Download Data
+__pycache__/
+*.pyc
+.env
+venv/
+
+
