@@ -1,9 +1,16 @@
-Download
-Data
-__pycache__/
+# Ignore compiled files
 *.pyc
-.env
-venv/
-build/
-dist/
+__pycache__/
 
+# Ignore data files
+data/
+dist/
+*.html
+*.csv
+
+# Ignore documentation files if you don't want them counted
+*.docx
+
+# OS files
+.DS_Store
+Thumbs.db
